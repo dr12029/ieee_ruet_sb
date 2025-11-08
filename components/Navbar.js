@@ -4,22 +4,30 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaUser, FaBars, FaTimes, FaChevronDown } from 'react-icons/fa';
+import { usePathname } from 'next/navigation';
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [openDropdown, setOpenDropdown] = useState(null);
+    const pathname = usePathname();
+    const isHomePage = pathname === '/';
 
     useEffect(() => {
         const handleScroll = () => {
-            // Check if user has scrolled past the hero section (roughly viewport height)
-            const heroHeight = window.innerHeight;
-            setScrolled(window.scrollY > heroHeight * 0.8);
+            // Only enable scroll toggle on home page
+            if (isHomePage) {
+                const heroHeight = window.innerHeight;
+                setScrolled(window.scrollY > heroHeight * 0.8);
+            }
         };
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [isHomePage]);
+
+    // Always show gradient navbar on non-home pages
+    const isGradientNav = !isHomePage || scrolled;
 
     const toggleDropdown = (name) => {
         setOpenDropdown(openDropdown === name ? null : name);
@@ -69,7 +77,7 @@ const Navbar = () => {
 
     return (
         <nav className={`fixed top-0 left-0 right-0 z-50 shadow-lg transition-all duration-700 ease-in-out ${
-            scrolled 
+            isGradientNav 
                 ? 'bg-linear-to-r from-blue-600 to-purple-600' 
                 : 'bg-linear-to-r from-white to-gray-50'
         }`}>
@@ -84,7 +92,7 @@ const Navbar = () => {
                                 width={120} 
                                 height={40}
                                 className={`transition-all duration-700 ease-in-out ${
-                                    scrolled ? '' : 'brightness-0'
+                                    isGradientNav ? '' : 'brightness-0'
                                 }`}
                             />
                         </Link>
@@ -97,7 +105,7 @@ const Navbar = () => {
                                 {link.children ? (
                                     <div className="relative">
                                         <button className={`flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium transition-all duration-500 ease-in-out ${
-                                            scrolled ? 'text-white hover:bg-white hover:bg-opacity-20 hover:text-blue-600' : 'text-gray-800 hover:bg-gray-200'
+                                            isGradientNav ? 'text-white hover:bg-white hover:bg-opacity-20 hover:text-blue-600' : 'text-gray-800 hover:bg-gray-200'
                                         }`}>
                                             {link.name}
                                             <FaChevronDown className="text-xs" />
@@ -119,7 +127,7 @@ const Navbar = () => {
                                     <Link 
                                         href={link.href}
                                         className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-500 ease-in-out ${
-                                            scrolled ? 'text-white hover:bg-white hover:bg-opacity-20 hover:text-blue-600' : 'text-gray-800 hover:bg-gray-200'
+                                            isGradientNav ? 'text-white hover:bg-white hover:bg-opacity-20 hover:text-blue-600' : 'text-gray-800 hover:bg-gray-200'
                                         }`}
                                     >
                                         {link.name}
@@ -133,7 +141,7 @@ const Navbar = () => {
                     <div className="hidden lg:flex items-center">
                         <Link href="/admin">
                             <button className={`p-2 rounded-full transition-all duration-500 ease-in-out ${
-                                scrolled ? 'text-white hover:bg-white hover:bg-opacity-20 hover:text-blue-600' : 'text-gray-800 hover:bg-gray-200'
+                                isGradientNav ? 'text-white hover:bg-white hover:bg-opacity-20 hover:text-blue-600' : 'text-gray-800 hover:bg-gray-200'
                             }`}>
                                 <FaUser className="text-xl" />
                             </button>
@@ -145,7 +153,7 @@ const Navbar = () => {
                         {/* Profile Icon (Mobile) */}
                         <Link href="/admin">
                             <button className={`p-2 rounded-full transition-all duration-500 ease-in-out ${
-                                scrolled ? 'text-white hover:bg-white hover:bg-opacity-20 hover:text-blue-600' : 'text-gray-800 hover:bg-gray-200'
+                                isGradientNav ? 'text-white hover:bg-white hover:bg-opacity-20 hover:text-blue-600' : 'text-gray-800 hover:bg-gray-200'
                             }`}>
                                 <FaUser className="text-lg" />
                             </button>
@@ -155,7 +163,7 @@ const Navbar = () => {
                         <button 
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                             className={`p-2 rounded-md transition-all duration-500 ease-in-out ${
-                                scrolled ? 'text-white hover:bg-white hover:bg-opacity-20 hover:text-blue-600' : 'text-gray-800 hover:bg-gray-200'
+                                isGradientNav ? 'text-white hover:bg-white hover:bg-opacity-20 hover:text-blue-600' : 'text-gray-800 hover:bg-gray-200'
                             }`}
                         >
                             {mobileMenuOpen ? <FaTimes className="text-xl" /> : <FaBars className="text-xl" />}
@@ -175,7 +183,7 @@ const Navbar = () => {
                                         <button 
                                             onClick={() => toggleDropdown(link.name)}
                                             className={`w-full flex items-center justify-between px-3 py-2 rounded-md text-base font-medium transition-all duration-300 ${
-                                                scrolled ? 'text-white hover:bg-white hover:bg-opacity-20 hover:text-blue-600' : 'text-gray-800 hover:bg-gray-200'
+                                                isGradientNav ? 'text-white hover:bg-white hover:bg-opacity-20 hover:text-blue-600' : 'text-gray-800 hover:bg-gray-200'
                                             }`}
                                         >
                                             {link.name}
@@ -205,7 +213,7 @@ const Navbar = () => {
                                         href={link.href}
                                         onClick={() => setMobileMenuOpen(false)}
                                         className={`block px-3 py-2 rounded-md text-base font-medium transition-all duration-300 ${
-                                            scrolled ? 'text-white hover:bg-white hover:bg-opacity-20 hover:text-blue-600' : 'text-gray-800 hover:bg-gray-200'
+                                            isGradientNav ? 'text-white hover:bg-white hover:bg-opacity-20 hover:text-blue-600' : 'text-gray-800 hover:bg-gray-200'
                                         }`}
                                     >
                                         {link.name}

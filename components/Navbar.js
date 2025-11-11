@@ -48,11 +48,11 @@ const Navbar = () => {
         {
             name: 'Chapters & AG',
             children: [
-                { name: 'IEEE RUET IAS SB Chapter', href: '/ias' },
-                { name: 'IEEE RUET RAS SB Chapter', href: '/ras' },
-                { name: 'IEEE CS RUET SB Chapter', href: '/cs' },
-                { name: 'IEEE RUET SPS SB Chapter', href: '/sps' },
-                { name: 'IEEE RUET WIE SB Affinity Group', href: '/wie' }
+                { name: 'IEEE RUET IAS SB Chapter', href: '/chapters/ias' },
+                { name: 'IEEE RUET RAS SB Chapter', href: '/chapters/ras' },
+                { name: 'IEEE CS RUET SB Chapter', href: '/chapters/cs' },
+                { name: 'IEEE RUET SPS SB Chapter', href: '/chapters/sps' },
+                { name: 'IEEE RUET WIE SB Affinity Group', href: '/affinity-groups/wie' }
             ]
         },
         { name: 'Events', href: '/events' },

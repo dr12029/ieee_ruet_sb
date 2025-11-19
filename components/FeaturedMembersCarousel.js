@@ -19,11 +19,21 @@ const FeaturedMembersCarousel = () => {
   const updateCardMask = () => {
     if (!containerRef.current) return;
 
+    // Disable mask on small devices (below md breakpoint: 768px)
+    const isSmallDevice = window.innerWidth < 768;
+    
     const containerRect = containerRef.current.getBoundingClientRect();
     const fadeDistance = 250; // Distance over which fade occurs
 
     cardRefs.current.forEach((card) => {
       if (!card) return;
+
+      // Skip masking on small devices
+      if (isSmallDevice) {
+        card.style.webkitMaskImage = 'none';
+        card.style.maskImage = 'none';
+        return;
+      }
 
       const cardRect = card.getBoundingClientRect();
       const cardLeft = cardRect.left;
@@ -109,17 +119,17 @@ const FeaturedMembersCarousel = () => {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          {/* Left Gradient Mask Overlay */}
+          {/* Left Gradient Mask Overlay - Hidden on small devices */}
           <div 
-            className="absolute left-0 top-0 bottom-0 w-80 pointer-events-none z-20"
+            className="hidden md:block absolute left-0 top-0 bottom-0 w-80 pointer-events-none z-20"
             style={{
               background: 'linear-gradient(to right, rgb(249, 250, 251) 0%, transparent 100%)'
             }}
           ></div>
           
-          {/* Right Gradient Mask Overlay */}
+          {/* Right Gradient Mask Overlay - Hidden on small devices */}
           <div 
-            className="absolute right-0 top-0 bottom-0 w-80 pointer-events-none z-20"
+            className="hidden md:block absolute right-0 top-0 bottom-0 w-80 pointer-events-none z-20"
             style={{
               background: 'linear-gradient(to left, rgb(249, 250, 251) 0%, transparent 100%)'
             }}
@@ -182,9 +192,10 @@ const FeaturedMembersCarousel = () => {
         <div className="text-center mt-12">
           <a
             href="/executive-committee"
-            className="inline-block px-10 py-4 bg-linear-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-cyan-600 transition-all duration-700 ease-in-out transform hover:scale-105"
+            className="btn-primary group"
           >
-            View All Executive Members
+            <span className="relative z-10">View All Executive Members</span>
+            <div className="btn-primary-shine -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
           </a>
         </div>
       </div>

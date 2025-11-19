@@ -36,9 +36,9 @@ const HeroSection = () => {
 
         {/* About Us Button */}
         <Link href="/ruet-sb">
-          <button className="group relative px-10 py-4 bg-linear-to-r from-blue-600 to-cyan-500 text-white text-lg font-semibold rounded-lg shadow-lg hover:shadow-2xl transition-all duration-500 ease-in-out transform hover:scale-105 hover:from-blue-700 hover:to-cyan-600">
+          <button className="btn-primary group">
             <span className="relative z-10">About Us</span>
-            <div className="absolute inset-0 bg-white/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <div className="btn-primary-shine -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
           </button>
         </Link>
       </div>

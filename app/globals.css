@@ -29,7 +29,11 @@ body {
 
 /* Button Styles */
 .btn-primary {
-  @apply inline-block px-8 py-3 bg-linear-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-cyan-600 transition-all duration-300 transform hover:scale-105;
+  @apply relative inline-flex items-center gap-3 px-12 py-5 bg-linear-to-r from-blue-600 to-cyan-500 text-white text-lg font-bold rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105 overflow-hidden;
+}
+
+.btn-primary-shine {
+  @apply absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent skew-x-12;
 }
 
 .btn-secondary-1 {
@@ -37,5 +41,10 @@ body {
 }
 
 .btn-secondary-2 {
-  @apply inline-block px-8 py-3 bg-transparent text-blue-600 font-semibold rounded-lg border-2 border-blue-600 shadow-sm hover:bg-blue-600 hover:text-white hover:shadow-md transition-all duration-300 transform hover:scale-105;
+  @apply inline-flex items-center gap-2 px-8 py-3 bg-transparent text-blue-600 font-semibold rounded-lg border-2 border-blue-600 shadow-sm hover:bg-blue-600 hover:text-white hover:shadow-md transition-all duration-300 transform hover:scale-105;
 }
+
+.btn-instagram {
+  @apply inline-flex items-center gap-2 px-8 py-3 bg-linear-to-br from-purple-600 via-pink-500 to-orange-400 text-white font-semibold rounded-lg border-2 border-transparent shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-105;
+}
+

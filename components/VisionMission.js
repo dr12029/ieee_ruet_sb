@@ -22,7 +22,7 @@ const VisionMission = () => {
   const handleTabClick = (newTabId) => {
     const currentIndex = tabs.find(tab => tab.id === activeTab).index;
     const newIndex = tabs.find(tab => tab.id === newTabId).index;
-    
+
     // Determine animation direction
     setDirection(newIndex > currentIndex ? 'right' : 'left');
     setActiveTab(newTabId);
@@ -73,19 +73,16 @@ const VisionMission = () => {
                 className={`
                   relative px-10 py-4 font-semibold text-lg transition-all duration-300 ease-in-out
                   border-2 rounded-lg overflow-hidden
-                  ${activeTab === tab.id 
-                    ? 'text-white border-transparent' 
+                  ${activeTab === tab.id
+                    ? 'text-white border-transparent'
                     : 'text-gray-700 border-gray-300 hover:border-blue-400 hover:text-blue-600 bg-white'
                   }
                 `}
               >
                 {/* Animated background for active tab */}
                 {activeTab === tab.id && (
-                  <span 
-                    className="absolute inset-0 bg-linear-to-r from-blue-600 to-cyan-500 transition-all duration-500 ease-in-out"
-                    style={{
-                      animation: direction === 'right' ? 'slideFromLeft 0.5s ease-out' : 'slideFromRight 0.5s ease-out'
-                    }}
+                  <span
+                    className="absolute inset-0 bg-linear-to-r from-blue-600 to-cyan-500"
                   ></span>
                 )}
                 <span className="relative z-10">{tab.label}</span>
@@ -99,7 +96,7 @@ const VisionMission = () => {
           {/* Decorative corner elements */}
           <div className="absolute top-0 right-0 w-32 h-32 bg-linear-to-br from-blue-400 to-cyan-400 opacity-10 rounded-bl-full"></div>
           <div className="absolute bottom-0 left-0 w-32 h-32 bg-linear-to-tr from-blue-400 to-cyan-400 opacity-10 rounded-tr-full"></div>
-          
+
           {/* Content with slide transition */}
           <div className="relative z-10">
             {tabs.map((tab) => (
@@ -107,8 +104,8 @@ const VisionMission = () => {
                 key={tab.id}
                 className={`
                   transition-all duration-500 ease-in-out
-                  ${activeTab === tab.id 
-                    ? 'opacity-100 translate-x-0' 
+                  ${activeTab === tab.id
+                    ? 'opacity-100 translate-x-0'
                     : direction === 'right'
                       ? 'opacity-0 -translate-x-8 absolute inset-0 pointer-events-none'
                       : 'opacity-0 translate-x-8 absolute inset-0 pointer-events-none'
@@ -123,31 +120,6 @@ const VisionMission = () => {
           </div>
         </div>
       </div>
-
-      {/* Keyframe animations */}
-      <style jsx>{`
-        @keyframes slideFromLeft {
-          from {
-            transform: translateX(-100%);
-            opacity: 0;
-          }
-          to {
-            transform: translateX(0);
-            opacity: 1;
-          }
-        }
-
-        @keyframes slideFromRight {
-          from {
-            transform: translateX(100%);
-            opacity: 0;
-          }
-          to {
-            transform: translateX(0);
-            opacity: 1;
-          }
-        }
-      `}</style>
     </section>
   );
 };

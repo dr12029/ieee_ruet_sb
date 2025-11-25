@@ -1,10 +1,54 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaCalendarDay, FaArrowRight } from 'react-icons/fa';
 
-export default function RecentEventsSection({ events }) {
+export default function RecentEventsSection() {
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchEvents() {
+      try {
+        const response = await fetch('/api/events?featured=true');
+        const data = await response.json();
+        // Get the 3 most recent featured events
+        const recentFeatured = (data.events || []).slice(0, 3);
+        setEvents(recentFeatured);
+      } catch (error) {
+        console.error('Error fetching featured events:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchEvents();
+  }, []);
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    }).toUpperCase();
+  }
+
+  if (loading) {
+    return (
+      <section className="relative py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <div className="loading loading-spinner loading-lg text-primary"></div>
+        </div>
+      </section>
+    );
+  }
+
+  if (!events || events.length === 0) {
+    return null;
+  }
+
   return (
     <section className="relative py-24 bg-white overflow-hidden">
       {/* Background Decoration */}
@@ -42,36 +86,29 @@ export default function RecentEventsSection({ events }) {
                   alt={event.title}
                   fill
                   className="object-cover transform group-hover:scale-110 transition-transform duration-700"
-                />
+                />)
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent"></div>
-                
-                {/* Event number badge */}
-                <div className="absolute top-4 left-4 w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg">
-                  <span className="text-xl font-black text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-cyan-500">
-                    {index + 1}
-                  </span>
-                </div>
               </div>
 
               {/* Content */}
               <div className="p-6">
                 {/* Title */}
                 <h3 className="text-xl font-bold text-gray-900 mb-4 leading-tight min-h-14 line-clamp-2">
-                  {event.title}
+                  {event.name}
                 </h3>
 
                 {/* Date badge */}
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-blue-50 to-cyan-50 rounded-full mb-4">
                   <FaCalendarDay className="w-4 h-4 text-blue-600" />
                   <span className="text-sm font-semibold text-blue-600">
-                    {event.date}
+                    {formatDate(event.date)}
                   </span>
                 </div>
 
                 {/* View button */}
                 <Link
-                  href={event.link}
+                  href={`/events/${event.id}`}
                   className="group/btn inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 w-full justify-center"
                 >
                   View Details

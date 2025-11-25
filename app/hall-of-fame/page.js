@@ -45,10 +45,10 @@ export default function HallOfFame() {
         <div className="container mx-auto px-6">
           <div className="text-center">
             <Image
-              src="/team/ruet-sb.png"
+              src="/ruet-sb.png"
               alt="IEEE RUET SB Logo"
-              width={100}
-              height={100}
+              width={200}
+              height={200}
               className="mx-auto mb-6"
             />
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">

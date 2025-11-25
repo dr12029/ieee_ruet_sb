@@ -8,8 +8,6 @@ import PublicationsSection from "@/components/PublicationsSection";
 import StatisticsSection from "@/components/StatisticsSection";
 import {
   featuredAchievements,
-  upcomingEvents,
-  recentIconicEvents,
   recentPublications,
   statistics,
 } from "@/data/homePageData";
@@ -21,8 +19,8 @@ export default function Home() {
       <VisionMission />
       <FeaturedMembersCarousel />
       <AchievementsSection achievements={featuredAchievements} />
-      <UpcomingEventsSection events={upcomingEvents} />
-      <RecentEventsSection events={recentIconicEvents} />
+      <UpcomingEventsSection />
+      <RecentEventsSection />
       <PublicationsSection publications={recentPublications} />
       <StatisticsSection statistics={statistics} />
     </div>

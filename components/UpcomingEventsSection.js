@@ -1,10 +1,39 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaCalendarAlt, FaArrowRight } from 'react-icons/fa';
 
-export default function UpcomingEventsSection({ events }) {
+export default function UpcomingEventsSection() {
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchEvents() {
+      try {
+        const response = await fetch('/api/events?type=upcoming');
+        const data = await response.json();
+        setEvents(data.events || []);
+      } catch (error) {
+        console.error('Error fetching upcoming events:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchEvents();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="relative py-24 bg-linear-to-br from-blue-50 via-cyan-50 to-blue-50">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <div className="loading loading-spinner loading-lg text-primary"></div>
+        </div>
+      </section>
+    );
+  }
+
   if (!events || events.length === 0) {
     return (
       <section className="relative py-24 bg-linear-to-br from-blue-50 via-cyan-50 to-blue-50 overflow-hidden">
@@ -79,26 +108,19 @@ export default function UpcomingEventsSection({ events }) {
                   alt={event.title}
                   fill
                   className="object-cover transform group-hover:scale-110 transition-transform duration-700"
-                />
+                />)
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent"></div>
-                
-                {/* Event badge */}
-                <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
-                  <span className="text-sm font-bold text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-cyan-500">
-                    EVENT #{index + 1}
-                  </span>
-                </div>
               </div>
 
               {/* Content */}
               <div className="p-8">
                 <h3 className="text-2xl font-bold text-gray-900 mb-6 leading-tight">
-                  {event.title}
+                  {event.name}
                 </h3>
-                
+
                 <Link
-                  href={event.link}
+                  href={`/events/${event.id}`}
                   className="group/btn inline-flex items-center gap-3 px-8 py-4 bg-linear-to-r from-blue-600 to-cyan-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 >
                   View Event Details

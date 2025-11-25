@@ -47,7 +47,7 @@ export default function PublicationsSection({ publications }) {
                       className="object-contain drop-shadow-2xl"
                     />
                   </div>
-                  
+
                   {/* Decorative corner ribbon */}
                   <div className="absolute top-0 right-0">
                     <div className="bg-linear-to-br from-blue-500 to-cyan-600 text-white px-6 py-2 shadow-lg transform rotate-45 translate-x-8 -translate-y-8">
@@ -56,22 +56,8 @@ export default function PublicationsSection({ publications }) {
                   </div>
                 </div>
 
-                {/* Title badge */}
-                <div className="p-6 text-center">
-                  <div className="inline-block px-6 py-3 bg-linear-to-r from-blue-600 to-cyan-500 text-white font-bold rounded-full shadow-lg">
-                    Issue #{index + 1}
-                  </div>
-                </div>
-
                 {/* Decorative glow effect */}
                 <div className="absolute inset-0 bg-linear-to-tr from-blue-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"></div>
-              </div>
-
-              {/* Floating badge */}
-              <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2">
-                <div className="bg-white px-6 py-2 rounded-full shadow-lg border-4 border-blue-100">
-                  <FaBook className="w-5 h-5 text-blue-600" />
-                </div>
               </div>
             </div>
           ))}

@@ -22,7 +22,7 @@ export default function GalleryPage() {
                 const response = await fetch('/api/gallery');
                 const data = await response.json();
                 setGalleryData(data);
-                
+
                 const availableYears = Object.keys(data).sort((a, b) => b.localeCompare(a));
                 setYears(availableYears);
                 setSelectedYear(availableYears[0] || '');
@@ -32,7 +32,7 @@ export default function GalleryPage() {
                 setLoading(false);
             }
         }
-        
+
         fetchGalleryData();
     }, []);
 

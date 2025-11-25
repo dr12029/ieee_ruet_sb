@@ -4,11 +4,12 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { getSessions, getSessionData } from '@/data/hallOfFameData';
 import OrganizationTable from '@/components/OrganizationTable';
+import YearSelector from '@/components/YearSelector';
 
 export default function HallOfFame() {
   const sessions = getSessions();
   const [activeSession, setActiveSession] = useState(sessions[0]);
-  
+
   const sessionData = getSessionData(activeSession);
 
   return (
@@ -19,7 +20,7 @@ export default function HallOfFame() {
         {/* Decorative circles */}
         <div className="absolute top-20 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl"></div>
-        
+
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
@@ -30,7 +31,7 @@ export default function HallOfFame() {
             </p>
           </div>
         </div>
-        
+
         {/* Decorative wave */}
         <div className="absolute bottom-0 left-0 right-0">
           <svg className="w-full h-12 fill-gray-50" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -61,22 +62,13 @@ export default function HallOfFame() {
       {/* Dropdown Selection */}
       <section className="py-6 bg-white border-b-2 border-gray-200">
         <div className="container mx-auto px-6">
-          <div className="flex items-center gap-4 max-w-7xl mx-auto">
-            <label htmlFor="session-select" className="text-lg font-semibold text-gray-700 whitespace-nowrap">
-              Select Session Year:
-            </label>
-            <select
-              id="session-select"
-              value={activeSession}
-              onChange={(e) => setActiveSession(e.target.value)}
-              className="px-4 py-2.5 text-base font-medium text-gray-900 bg-white border-2 border-blue-300 rounded-lg shadow-sm hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all cursor-pointer"
-            >
-              {sessions.map((session) => (
-                <option key={session} value={session}>
-                  {session}
-                </option>
-              ))}
-            </select>
+          <div className="max-w-7xl mx-auto">
+            <YearSelector
+              years={sessions}
+              selectedYear={activeSession}
+              onYearChange={setActiveSession}
+              label="Select Session Year:"
+            />
           </div>
         </div>
       </section>

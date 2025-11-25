@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { achievementsData, getAchievementYears } from '@/data/achievementsData';
 import { FaAward, FaTimes } from 'react-icons/fa';
+import YearSelector from '@/components/YearSelector';
 
 export default function AchievementsPage() {
   const years = getAchievementYears();
@@ -74,22 +75,12 @@ export default function AchievementsPage() {
       {/* Year Selection Section */}
       <section className="py-6 bg-white border-b-2 border-gray-200">
         <div className="container mx-auto px-6">
-          <div className="flex items-center gap-4 max-w-7xl mx-auto">
-            <label htmlFor="year-select" className="text-lg font-semibold text-gray-700 whitespace-nowrap">
-              Select Year:
-            </label>
-            <select
-              id="year-select"
-              value={selectedYear}
-              onChange={(e) => setSelectedYear(e.target.value)}
-              className="px-4 py-2.5 text-base font-medium text-gray-900 bg-white border-2 border-blue-300 rounded-lg shadow-sm hover:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all cursor-pointer"
-            >
-              {years.map((year) => (
-                <option key={year} value={year}>
-                  {year}
-                </option>
-              ))}
-            </select>
+          <div className="max-w-7xl mx-auto">
+            <YearSelector
+              years={years}
+              selectedYear={selectedYear}
+              onYearChange={setSelectedYear}
+            />
           </div>
         </div>
       </section>
@@ -139,9 +130,8 @@ export default function AchievementsPage() {
                   {currentData.branchAchievements.map((achievement) => (
                     <div
                       key={achievement.id}
-                      className={`bg-white rounded-2xl shadow-xl p-8 text-center hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-t-4 border-blue-600 ${
-                        achievement.image ? 'cursor-pointer' : ''
-                      }`}
+                      className={`bg-white rounded-2xl shadow-xl p-8 text-center hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-t-4 border-blue-600 ${achievement.image ? 'cursor-pointer' : ''
+                        }`}
                       onClick={() => achievement.image && openImageModal(achievement.image)}
                     >
                       {achievement.image ? (

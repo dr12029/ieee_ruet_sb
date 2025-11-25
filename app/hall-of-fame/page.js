@@ -14,53 +14,33 @@ export default function HallOfFame() {
 
   return (
     <main className="min-h-screen bg-gray-50">
-      {/* Hero Section - Same as Executive Committee */}
-      <section className="relative bg-linear-to-br from-purple-700 via-blue-600 to-cyan-500 text-white py-20 overflow-hidden">
-        <div className="absolute inset-0 bg-black/10"></div>
-        {/* Decorative circles */}
-        <div className="absolute top-20 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-400/20 rounded-full blur-3xl"></div>
-
-        <div className="container mx-auto px-6 relative z-10">
+      {/* Hero Section */}
+      <section className="bg-white text-gray-900 py-16 mt-16">
+        <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">
               IEEE RUET SB Hall of Fame
             </h1>
-            <p className="text-xl md:text-2xl text-blue-100">
+            <p className="text-xl text-gray-600">
               Honoring our past leaders and their contributions
             </p>
           </div>
         </div>
-
-        {/* Decorative wave */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg className="w-full h-12 fill-gray-50" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
-          </svg>
-        </div>
       </section>
 
-      {/* Logo Section */}
-      <section className="py-12 bg-white">
+      {/* Session Title Section */}
+      <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center">
-            <Image
-              src="/ruet-sb.png"
-              alt="IEEE RUET SB Logo"
-              width={200}
-              height={200}
-              className="mx-auto mb-6"
-            />
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
               Session Based Executive Committee
             </h2>
-            <div className="w-32 h-1 bg-linear-to-r from-purple-600 via-blue-600 to-cyan-500 mx-auto"></div>
           </div>
         </div>
       </section>
 
       {/* Dropdown Selection */}
-      <section className="py-6 bg-white border-b-2 border-gray-200">
+      <section className="py-6 bg-gray-50 border-b-2 border-gray-200">
         <div className="container mx-auto px-6">
           <div className="max-w-7xl mx-auto">
             <YearSelector

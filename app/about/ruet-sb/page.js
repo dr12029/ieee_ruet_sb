@@ -12,21 +12,13 @@ export default function RuetSBPage() {
     return (
         <div className="min-h-screen bg-white">
             {/* Hero Section */}
-            <div className="relative bg-linear-to-br from-blue-600 via-purple-600 to-cyan-500 text-white py-20 mt-16 overflow-hidden">
-                {/* Gradient Overlays */}
-                <div className="absolute top-0 left-0 right-0 h-20 bg-linear-to-b from-white to-transparent opacity-20"></div>
-                <div className="absolute bottom-0 left-0 right-0 h-20 bg-linear-to-t from-blue-600 to-transparent opacity-30"></div>
-
-                {/* Animated Background Circles */}
-                <div className="absolute top-10 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
-                <div className="absolute bottom-10 right-10 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse delay-700"></div>
-
-                <div className="container mx-auto px-4 relative z-10">
+            <div className="bg-white text-gray-900 py-16 mt-16">
+                <div className="container mx-auto px-4">
                     <div className="text-center">
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 drop-shadow-lg">
+                        <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">
                             IEEE RUET Student Branch
                         </h1>
-                        <p className="text-xl md:text-2xl text-blue-100 font-light">
+                        <p className="text-xl text-gray-600">
                             Rajshahi University of Engineering & Technology
                         </p>
                     </div>
@@ -148,11 +140,10 @@ export default function RuetSBPage() {
 
                     {/* Chapters and Affinity Group - Collapsible */}
                     <div
-                        className={`transition-all duration-500 ease-in-out overflow-hidden ${
-                            showMore
+                        className={`transition-all duration-500 ease-in-out overflow-hidden ${showMore
                                 ? "max-h-[3000px] opacity-100"
                                 : "max-h-0 opacity-0"
-                        }`}
+                            }`}
                     >
                         <div className="bg-linear-to-br from-gray-50 to-blue-50 rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100 mb-12">
                             <p className="text-gray-700 text-lg leading-relaxed mb-8">

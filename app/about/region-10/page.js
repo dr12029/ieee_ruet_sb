@@ -4,21 +4,13 @@ export default function Region10Page() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="relative bg-linear-to-br from-blue-600 via-purple-600 to-cyan-500 text-white py-20 mt-16 overflow-hidden">
-        {/* Gradient Overlays */}
-        <div className="absolute top-0 left-0 right-0 h-20 bg-linear-to-b from-white to-transparent opacity-20"></div>
-        <div className="absolute bottom-0 left-0 right-0 h-20 bg-linear-to-t from-blue-600 to-transparent opacity-30"></div>
-
-        {/* Animated Background Circles */}
-        <div className="absolute top-10 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-10 right-10 w-96 h-96 bg-white/10 rounded-full blur-3xl animate-pulse delay-700"></div>
-
-        <div className="container mx-auto px-4 relative z-10">
+      <div className="bg-white text-gray-900 py-16 mt-16">
+        <div className="container mx-auto px-4">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 drop-shadow-lg">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">
               IEEE Region 10
             </h1>
-            <p className="text-xl md:text-2xl text-blue-100 font-light">
+            <p className="text-xl text-gray-600">
               Asia Pacific Region
             </p>
           </div>
@@ -76,7 +68,7 @@ export default function Region10Page() {
               <p className="text-gray-700 leading-relaxed text-justify mb-8">
                 Region 10 has the most extensive number of members compared to the other regions. It is usually referred to as the Asia Pacific Region. It is the unique Region in IEEE showing steady growth in membership and counts more than 135,000 members by the end of 2019, the number is almost 32% of the entire membership of IEEE. A total of 58 Sections and 6 Councils alone are in Asia and Pacific along with
               </p>
-              
+
               <div className="grid md:grid-cols-2 gap-6 mb-8">
                 <div className="bg-linear-to-br from-blue-50 to-cyan-50 p-6 rounded-xl border border-blue-100">
                   <ul className="space-y-3 text-gray-700">
@@ -94,7 +86,7 @@ export default function Region10Page() {
                     </li>
                   </ul>
                 </div>
-                
+
                 <div className="bg-linear-to-br from-purple-50 to-pink-50 p-6 rounded-xl border border-purple-100">
                   <ul className="space-y-3 text-gray-700">
                     <li className="flex items-start gap-3">
@@ -124,7 +116,7 @@ export default function Region10Page() {
               <p className="text-gray-700 leading-relaxed text-justify mb-6">
                 The IEEE Asia-Pacific office&apos;s main objective is to serve the members in the Region 10 by assisting its Committees and Director&apos;s in their activities. Operations are:
               </p>
-              
+
               <div className="space-y-4">
                 <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg border-l-4 border-blue-600">
                   <span className="text-blue-600 font-bold text-xl shrink-0">→</span>
@@ -132,28 +124,28 @@ export default function Region10Page() {
                     The office encourages the Director and Committee members to plan, organize and coordinate the meeting of Region 10
                   </p>
                 </div>
-                
+
                 <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg border-l-4 border-cyan-600">
                   <span className="text-cyan-600 font-bold text-xl shrink-0">→</span>
                   <p className="text-gray-700">
                     The office assists the Region 10 Coordinators in advancing IEEE membership and their activities
                   </p>
                 </div>
-                
+
                 <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg border-l-4 border-purple-600">
                   <span className="text-purple-600 font-bold text-xl shrink-0">→</span>
                   <p className="text-gray-700">
                     The office encourages the formation of new IEEE organizational units
                   </p>
                 </div>
-                
+
                 <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg border-l-4 border-pink-600">
                   <span className="text-pink-600 font-bold text-xl shrink-0">→</span>
                   <p className="text-gray-700">
                     The office collects and reports responses from volunteers and members on IEEE procedures, benefits, and services for the region
                   </p>
                 </div>
-                
+
                 <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg border-l-4 border-blue-500">
                   <span className="text-blue-500 font-bold text-xl shrink-0">→</span>
                   <p className="text-gray-700">

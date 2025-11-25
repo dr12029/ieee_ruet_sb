@@ -38,18 +38,14 @@ export default function FeaturedPage() {
     }
 
     return (
-        <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-cyan-50">
+        <div className="min-h-screen bg-gray-50">
             {/* Hero Section */}
-            <div className="bg-linear-to-r from-blue-600 via-cyan-500 to-purple-600 text-white py-24 px-4 mt-16">
+            <div className="bg-white text-gray-900 py-16 px-4 mt-16">
                 <div className="max-w-7xl mx-auto text-center">
-                    <div className="inline-flex items-center gap-3 bg-white/20 backdrop-blur-sm px-6 py-2 rounded-full mb-6">
-                        <FaNewspaper className="w-5 h-5" />
-                        <span className="font-bold">FEATURED</span>
-                    </div>
-                    <h1 className="text-5xl md:text-6xl font-bold mb-6">
+                    <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">
                         IEEE RUET SB Featured
                     </h1>
-                    <p className="text-xl text-blue-100 max-w-3xl mx-auto">
+                    <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                         Our achievements and recognition in media and IEEE publications
                     </p>
                 </div>

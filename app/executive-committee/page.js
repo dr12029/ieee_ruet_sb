@@ -27,31 +27,15 @@ export default function ExecutiveCommittee() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="relative mt-16 overflow-hidden">
-        {/* Gradient fade at top */}
-        <div className="absolute top-0 left-0 right-0 h-24 bg-linear-to-b from-white to-transparent z-10"></div>
-        
-        {/* Main gradient background */}
-        <div className="relative bg-linear-to-br from-blue-600 via-purple-600 to-cyan-500 text-white py-32 overflow-hidden">
-          {/* Animated Background Elements */}
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute w-96 h-96 bg-white opacity-10 rounded-full -top-48 -left-48 animate-pulse"></div>
-            <div className="absolute w-96 h-96 bg-white opacity-10 rounded-full -bottom-48 -right-48 animate-pulse delay-700"></div>
-            <div className="absolute w-64 h-64 bg-cyan-300 opacity-20 rounded-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse delay-1000"></div>
-          </div>
-          
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <h1 className="text-5xl md:text-6xl font-bold mb-4 drop-shadow-lg">
-              IEEE RUET SB Executive Committee
-            </h1>
-            <p className="text-xl md:text-2xl text-blue-100 font-light">
-              Meet the dedicated leaders driving innovation and excellence
-            </p>
-          </div>
+      <div className="bg-white py-16 mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">
+            IEEE RUET SB Executive Committee
+          </h1>
+          <p className="text-xl text-gray-600">
+            Meet the dedicated leaders driving innovation and excellence
+          </p>
         </div>
-        
-        {/* Gradient fade at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-linear-to-t from-white to-transparent z-10"></div>
       </div>
 
       {/* Main Content */}

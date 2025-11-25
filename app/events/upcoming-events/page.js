@@ -36,7 +36,7 @@ export default function UpcomingEventsPage() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-cyan-50 flex items-center justify-center">
+            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
                 <div className="text-center">
                     <div className="loading loading-spinner loading-lg text-primary"></div>
                     <p className="mt-4 text-gray-600">Loading events...</p>
@@ -46,10 +46,10 @@ export default function UpcomingEventsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-cyan-50 py-16 px-4">
+        <div className="min-h-screen bg-gray-50 py-16 px-4">
             <div className="max-w-7xl mx-auto">
                 {/* Hero Section */}
-                <div className="text-center mb-16 mt-8">
+                <div className="text-center mb-12 mt-8">
                     <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">
                         Upcoming Events
                     </h1>

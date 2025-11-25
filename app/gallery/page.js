@@ -90,7 +90,7 @@ export default function GalleryPage() {
 
     if (loading) {
         return (
-            <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-cyan-50 flex items-center justify-center">
+            <div className="min-h-screen bg-gray-50 flex items-center justify-center">
                 <div className="text-center">
                     <div className="loading loading-spinner loading-lg text-primary"></div>
                     <p className="mt-4 text-gray-600">Loading gallery...</p>
@@ -114,21 +114,15 @@ export default function GalleryPage() {
             )}
 
             {/* Hero Section */}
-            <section className="relative bg-linear-to-br from-purple-700 via-blue-600 to-cyan-500 text-white py-20">
-                <div className="absolute inset-0 bg-black/10"></div>
-
-                {/* Animated Background Elements */}
-                <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    <div className="absolute w-96 h-96 bg-white opacity-10 rounded-full -top-48 -left-48 animate-pulse"></div>
-                    <div className="absolute w-96 h-96 bg-white opacity-10 rounded-full -bottom-48 -right-48 animate-pulse delay-700"></div>
-                    <div className="absolute w-64 h-64 bg-cyan-300 opacity-20 rounded-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 animate-pulse delay-1000"></div>
-                </div>
-
-                <div className="container mx-auto px-6 relative z-10">
-                    <div className="max-w-4xl mx-auto text-center">
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold drop-shadow-lg">
-                            Gallery
+            <section className="bg-white text-gray-900 py-16 mt-16">
+                <div className="container mx-auto px-4">
+                    <div className="text-center">
+                        <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">
+                            Our Gallery
                         </h1>
+                        <p className="text-xl text-gray-600">
+                            Capturing Moments of Innovation and Excellence
+                        </p>
                     </div>
                 </div>
             </section>
@@ -168,18 +162,20 @@ export default function GalleryPage() {
             </section>
 
             {/* Event Title */}
-            {eventName && (
-                <section className="py-8 bg-white">
-                    <div className="container mx-auto px-6">
-                        <div className="max-w-7xl mx-auto text-center">
-                            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-                                {eventName}
-                            </h2>
-                            <div className="w-24 h-1 bg-linear-to-r from-purple-600 via-blue-600 to-cyan-500 mx-auto mt-4"></div>
+            {
+                eventName && (
+                    <section className="py-8 bg-white">
+                        <div className="container mx-auto px-6">
+                            <div className="max-w-7xl mx-auto text-center">
+                                <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+                                    {eventName}
+                                </h2>
+                                <div className="w-24 h-1 bg-linear-to-r from-purple-600 via-blue-600 to-cyan-500 mx-auto mt-4"></div>
+                            </div>
                         </div>
-                    </div>
-                </section>
-            )}
+                    </section>
+                )
+            }
 
             {/* Gallery Grid */}
             <section className="py-12 bg-gray-50">
@@ -220,6 +216,6 @@ export default function GalleryPage() {
                     </div>
                 </div>
             </section>
-        </main>
+        </main >
     );
 }

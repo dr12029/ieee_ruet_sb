@@ -12,42 +12,20 @@ export default function CSChapter() {
   return (
     <main className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className="relative bg-linear-to-br from-purple-700 via-purple-600 to-blue-600 text-white py-20">
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="container mx-auto px-6 relative z-10">
+      <section className="bg-white text-gray-900 py-16 mt-16">
+        <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">
               IEEE CS RUET Student Branch Chapter
             </h1>
           </div>
         </div>
-        {/* Decorative wave */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg className="w-full h-12 fill-gray-50" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
-          </svg>
-        </div>
       </section>
 
-      {/* Chapter Logo and Title */}
+      {/* Chapter Title */}
       <section className="py-16">
         <div className="container mx-auto px-6">
           <div className="max-w-5xl mx-auto">
-            <div className="flex justify-center mb-8">
-              <div className="relative">
-                <Image
-                  src="/about/cs_sc.gif"
-                  alt="IEEE Computer Society Logo"
-                  width={200}
-                  height={150}
-                  className="object-contain"
-                />
-                <p className="text-center text-blue-600 font-semibold mt-2">
-                  RUET Student Branch Chapter
-                </p>
-              </div>
-            </div>
-
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8">
               IEEE CS RUET Student Branch Chapter
             </h2>
@@ -145,9 +123,9 @@ export default function CSChapter() {
                   <div className="relative">
                     {/* Opening Quote */}
                     <svg className="absolute -top-4 -left-2 w-12 h-12 text-indigo-300 opacity-50" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                      <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
                     </svg>
-                    
+
                     <blockquote className="relative z-10">
                       <p className="text-gray-700 text-lg leading-relaxed italic pl-8 pr-8">
                         &ldquo;I am humbled to serve as the Chair of IEEE Computer Society RUET Student Branch Chapter—a chapter known for its remarkable activities and promise in Bangladesh. It is my privilege to lead this community of talented individuals to explore the vast benefits of the computer field and create opportunities for them that will expose our members to advancing technologies and foster their growth and innovation. Together, we will strive to maintain our position as the &quot;Best Computer Society Student Branch Chapter&quot; in Bangladesh.&rdquo;
@@ -156,7 +134,7 @@ export default function CSChapter() {
 
                     {/* Closing Quote */}
                     <svg className="absolute -bottom-4 -right-2 w-12 h-12 text-indigo-300 opacity-50 rotate-180" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/>
+                      <path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z" />
                     </svg>
                   </div>
                 </div>

@@ -12,21 +12,10 @@ export default function PublicationsPage() {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-linear-to-br from-blue-600 via-cyan-600 to-blue-700 overflow-hidden">
-        {/* Background decoration */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute w-96 h-96 bg-white opacity-10 rounded-full -top-48 -right-48 blur-3xl"></div>
-          <div className="absolute w-96 h-96 bg-cyan-300 opacity-10 rounded-full -bottom-48 -left-48 blur-3xl"></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <section className="bg-white py-16 pt-32">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <div className="flex justify-center mb-6">
-              <div className="p-4 bg-white/10 backdrop-blur-sm rounded-2xl">
-                <FaBook className="w-16 h-16 text-white" />
-              </div>
-            </div>
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">
               IEEE RUET SB Publications
             </h1>
           </div>
@@ -34,12 +23,12 @@ export default function PublicationsPage() {
       </section>
 
       {/* Publications Grid Section */}
-      <section className="py-20 bg-linear-to-br from-gray-50 to-blue-50">
+      <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              All <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-cyan-500">Publications</span>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              All Publications
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Download and read our magazines, technical documentation, and more

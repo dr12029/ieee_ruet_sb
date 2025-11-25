@@ -46,7 +46,7 @@ export default function RASChapter() {
             {/* Social Media Links */}
             <div className="flex flex-wrap justify-center gap-4 mb-12">
               <a
-                href="#"
+                href="https://web.facebook.com/IEEE-RUET-RAS-Student-Branch-Chapter-112822840091059"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary-2"
@@ -55,7 +55,7 @@ export default function RASChapter() {
                 Facebook Page
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/ieee_ruet_ras/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary-2"
@@ -64,7 +64,7 @@ export default function RASChapter() {
                 Instagram Page
               </a>
               <a
-                href="#"
+                href="https://www.youtube.com/channel/UCbIiuDPODLgjJmWH-Wo9vVQ"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary-2"

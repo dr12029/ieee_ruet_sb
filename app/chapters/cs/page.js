@@ -43,7 +43,7 @@ export default function CSChapter() {
             {/* Social Media Links */}
             <div className="flex flex-wrap justify-center gap-4 mb-12">
               <a
-                href="#"
+                href="https://www.facebook.com/IEEECSRUETSBC"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary-2"
@@ -52,7 +52,7 @@ export default function CSChapter() {
                 Facebook Page
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/ieee-computer-society-ruet-sbc/about/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary-2"
@@ -61,7 +61,7 @@ export default function CSChapter() {
                 LinkedIn Page
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/ieeecsruetsbc/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary-2"

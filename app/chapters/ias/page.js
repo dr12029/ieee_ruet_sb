@@ -48,7 +48,7 @@ export default function IASChapter() {
             {/* Social Media Links */}
             <div className="flex flex-wrap justify-center gap-4 mb-12">
               <a
-                href="#"
+                href="https://web.facebook.com/ieeeruetsbias"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary-2"
@@ -57,7 +57,7 @@ export default function IASChapter() {
                 Facebook Page
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/ieee-ruet-ias-student-branch-chapter/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary-2"
@@ -66,7 +66,7 @@ export default function IASChapter() {
                 LinkedIn Page
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/ieee_ruet_ias_sbc/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary-2"

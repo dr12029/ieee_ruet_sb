@@ -46,7 +46,7 @@ export default function WIEAffinityGroup() {
             {/* Social Media Links */}
             <div className="flex flex-wrap justify-center gap-4 mb-12">
               <a
-                href="#"
+                href="https://web.facebook.com/ieeeruetwiesbaffinitygroup"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary-2"
@@ -55,7 +55,7 @@ export default function WIEAffinityGroup() {
                 Facebook Page
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/ieee-ruet-wie-student-branch-affinity-group/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary-2"
@@ -64,7 +64,7 @@ export default function WIEAffinityGroup() {
                 LinkedIn Page
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/ieee_ruet_wie_sb_ag/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-secondary-2"

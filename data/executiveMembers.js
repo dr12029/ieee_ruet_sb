@@ -279,14 +279,14 @@ export const executiveMembers = {
       },
       {
         id: 19,
-        name: "Abhishek Chakrabortty",
+        name: "Ridoy Karmokar",
         position: "Secretary",
         organization: "IEEE RUET RAS SB Chapter",
         studentYear: "Undergraduate Student",
         department: "Dept. of EEE",
         university: "Rajshahi University of Engineering & Technology",
         email: "abhi63194@gmail.com",
-        image: "/team/Abhishek_Chakrabortty.png",
+        image: null,
         linkedin: "https://www.linkedin.com/in/abhishek-chakrabortty-a9774634b",
         facebook: "https://www.facebook.com/abhishek.chakrabortty.5",
         featured_member: false
@@ -300,7 +300,7 @@ export const executiveMembers = {
         department: "Dept. of EEE",
         university: "Rajshahi University of Engineering & Technology",
         email: "tahsin.tarif.personal@gmail.com",
-        image: null,
+        image: "/team/tahsin_tarif.jpg",
         linkedin: "https://www.linkedin.com/in/tahsintarif",
         facebook: "https://www.facebook.com/share/19J8Pk5CNo/",
         featured_member: false
@@ -459,28 +459,28 @@ export const executiveMembers = {
 // Helper functions
 export const getAllExecutives = () => {
   const all = [];
-  
+
   // Add counselor
   all.push(executiveMembers.counselor);
-  
+
   // Add advisors
   all.push(...executiveMembers.advisors);
-  
+
   // Add SB executives
   all.push(...executiveMembers.sbExecutives);
-  
+
   // Add chapter advisors and executives
   all.push(executiveMembers.iasChapter.advisor, ...executiveMembers.iasChapter.executives);
   all.push(executiveMembers.rasChapter.advisor, ...executiveMembers.rasChapter.executives);
   all.push(executiveMembers.csChapter.advisor, ...executiveMembers.csChapter.executives);
   all.push(executiveMembers.wieChapter.advisor, ...executiveMembers.wieChapter.executives);
   all.push(executiveMembers.spsChapter.advisor, ...executiveMembers.spsChapter.executives);
-  
+
   return all;
 };
 
 export const getExecutivesByOrganization = (organization) => {
-  switch(organization) {
+  switch (organization) {
     case 'IEEE RUET SB':
       return [executiveMembers.counselor, ...executiveMembers.advisors, ...executiveMembers.sbExecutives];
     case 'IEEE RUET IAS SB Chapter':

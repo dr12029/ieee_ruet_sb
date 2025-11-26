@@ -18,8 +18,8 @@ export default function HallOfFame() {
       <section className="bg-white text-gray-900 py-16 mt-16">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">
-              IEEE RUET SB Hall of Fame
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+              IEEE RUET SB <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-cyan-500">Hall of Fame</span>
             </h1>
             <p className="text-xl text-gray-600">
               Honoring our past leaders and their contributions

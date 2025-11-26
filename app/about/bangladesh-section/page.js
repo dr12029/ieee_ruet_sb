@@ -7,8 +7,8 @@ export default function BangladeshSectionPage() {
       <div className="bg-white text-gray-900 py-16 mt-16">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">
-              IEEE Bangladesh Section
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+              IEEE <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-cyan-500">Bangladesh Section</span>
             </h1>
             <p className="text-xl text-gray-600">
               Advancing Technology in Bangladesh

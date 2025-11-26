@@ -42,8 +42,8 @@ export default function FeaturedPage() {
             {/* Hero Section */}
             <div className="bg-white text-gray-900 py-16 px-4 mt-16">
                 <div className="max-w-7xl mx-auto text-center">
-                    <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">
-                        IEEE RUET SB Featured
+                    <h1 className="text-5xl md:text-6xl font-bold mb-6">
+                        IEEE RUET SB <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-cyan-500">Featured</span>
                     </h1>
                     <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                         Our achievements and recognition in media and IEEE publications

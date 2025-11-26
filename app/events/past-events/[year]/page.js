@@ -67,8 +67,8 @@ export default function PastEventsPage() {
             <div className="max-w-7xl mx-auto">
                 {/* Hero Section */}
                 <div className="text-center mb-12 mt-8">
-                    <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">
-                        Our Past Events
+                    <h1 className="text-5xl md:text-6xl font-bold mb-6">
+                        Our <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-cyan-500">Past Events</span>
                     </h1>
                     <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                         Explore our rich history of technical excellence and community engagement

@@ -105,7 +105,7 @@ export default function UpcomingEventsSection() {
               <div className="relative h-80 overflow-hidden">
                 <Image
                   src={event.image}
-                  alt={event.title}
+                  alt={event.title || 'Event image'}
                   fill
                   className="object-cover transform group-hover:scale-110 transition-transform duration-700"
                 />

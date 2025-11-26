@@ -16,8 +16,8 @@ export default function IASChapter() {
       <section className="bg-white text-gray-900 py-16 mt-16">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">
-              IEEE RUET IAS Student Branch Chapter
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+              IEEE RUET <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-cyan-500">IAS Student Branch Chapter</span>
             </h1>
           </div>
         </div>

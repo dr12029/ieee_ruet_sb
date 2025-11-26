@@ -15,8 +15,8 @@ export default function RuetSBPage() {
             <div className="bg-white text-gray-900 py-16 mt-16">
                 <div className="container mx-auto px-4">
                     <div className="text-center">
-                        <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">
-                            IEEE RUET Student Branch
+                        <h1 className="text-5xl md:text-6xl font-bold mb-6">
+                            IEEE <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-cyan-500">RUET Student Branch</span>
                         </h1>
                         <p className="text-xl text-gray-600">
                             Rajshahi University of Engineering & Technology
@@ -141,8 +141,8 @@ export default function RuetSBPage() {
                     {/* Chapters and Affinity Group - Collapsible */}
                     <div
                         className={`transition-all duration-500 ease-in-out overflow-hidden ${showMore
-                                ? "max-h-[3000px] opacity-100"
-                                : "max-h-0 opacity-0"
+                            ? "max-h-[3000px] opacity-100"
+                            : "max-h-0 opacity-0"
                             }`}
                     >
                         <div className="bg-linear-to-br from-gray-50 to-blue-50 rounded-3xl p-8 md:p-12 shadow-xl border border-gray-100 mb-12">

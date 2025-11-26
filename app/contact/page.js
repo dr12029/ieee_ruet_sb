@@ -45,8 +45,8 @@ export default function ContactPage() {
       <section className="bg-white text-gray-900 py-16 mt-16">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-linear-to-r from-blue-600 via-cyan-500 to-purple-600 bg-clip-text text-transparent">
-              Stay Connected With Us
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+              Stay <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-cyan-500">Connected</span> With Us
             </h1>
             <p className="text-xl text-gray-600">
               We're here to answer your questions and connect you with the IEEE RUET community

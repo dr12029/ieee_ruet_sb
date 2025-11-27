@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import Event from '@/models/Event';
 import { getEventById } from '@/data/eventsData';
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
 
 export async function GET(request, { params }) {
     try {
@@ -34,6 +36,11 @@ export async function GET(request, { params }) {
 
 export async function PUT(request, { params }) {
     try {
+        const session = await getServerSession(authOptions);
+        if (!session) {
+            return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+        }
+
         if (!process.env.MONGODB_URI) {
             return NextResponse.json({ success: false, error: 'Database not configured' }, { status: 500 });
         }
@@ -65,6 +72,11 @@ export async function PUT(request, { params }) {
 
 export async function DELETE(request, { params }) {
     try {
+        const session = await getServerSession(authOptions);
+        if (!session) {
+            return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+        }
+
         if (!process.env.MONGODB_URI) {
             return NextResponse.json({ success: false, error: 'Database not configured' }, { status: 500 });
         }

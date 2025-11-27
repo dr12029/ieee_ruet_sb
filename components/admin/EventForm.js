@@ -24,10 +24,28 @@ export default function EventForm({ initialData = {}, isEdit = false }) {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
+    
+    setFormData(prev => {
+      const newData = {
+        ...prev,
+        [name]: type === 'checkbox' ? checked : value
+      };
+
+      // Auto-update upcoming status when date changes
+      if (name === 'date') {
+        const selectedDate = new Date(value);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        if (selectedDate < today) {
+            newData.upcoming = false;
+        } else {
+            newData.upcoming = true;
+        }
+      }
+      
+      return newData;
+    });
   };
 
   const handleAddDetail = () => {

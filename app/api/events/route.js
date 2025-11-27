@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { eventsData, getUpcomingEvents, getPastEvents, getEventsByYear, getEventYears, getPastEventYears } from '@/data/eventsData';
 import connectDB from '@/lib/mongodb';
 import Event from '@/models/Event';
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
 
 /**
  * GET /api/events
@@ -20,10 +22,16 @@ export async function GET(request) {
                 await connectDB();
                 let query = {};
 
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
                 if (type === 'upcoming') {
                     query.upcoming = true;
                 } else if (type === 'past') {
-                    query.upcoming = false;
+                    query.$or = [
+                        { upcoming: false },
+                        { date: { $lt: today } }
+                    ];
                 }
 
                 if (year) {
@@ -102,6 +110,11 @@ export async function GET(request) {
  */
 export async function POST(request) {
     try {
+        const session = await getServerSession(authOptions);
+        if (!session) {
+            return NextResponse.json({ success: false, error: 'Unauthorized' }, { status: 401 });
+        }
+
         if (!process.env.MONGODB_URI) {
             return NextResponse.json({ success: false, error: 'Database not configured' }, { status: 500 });
         }

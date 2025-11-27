@@ -25,8 +25,8 @@ export default function PastEventsPage() {
                 // Use years from API response (already filtered for past events)
                 setYears(data.years || []);
 
-                // Filter events by selected year
-                const yearEvents = data.events.filter(e => e.year === year);
+                // Filter events by selected year (handle string/number comparison)
+                const yearEvents = data.events.filter(e => e.year.toString() === year.toString());
                 setEvents(yearEvents);
             } catch (error) {
                 console.error('Error fetching past events:', error);

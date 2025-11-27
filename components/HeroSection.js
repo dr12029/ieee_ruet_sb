@@ -35,7 +35,7 @@ const HeroSection = () => {
         </p>
 
         {/* About Us Button */}
-        <Link href="/ruet-sb">
+        <Link href="/about/ruet-sb">
           <button className="btn-primary group">
             <span className="relative z-10">About Us</span>
             <div className="btn-primary-shine -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>

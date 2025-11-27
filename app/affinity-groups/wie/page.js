@@ -33,14 +33,11 @@ export default function WIEAffinityGroup() {
             <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12 mb-8">
               <p className="text-gray-700 text-lg leading-relaxed mb-6 text-justify">
                 IEEE RUET WIE Student Branch affinity group is a platform dedicated to promoting <span className="font-bold text-gray-900">women engineers and scientists and inspiring girls</span> around the world to follow their academic interests to a career in engineering. It is a team of lively and enthusiastic members who works hard to provide facilities to women to follow their academic interests in a career in engineering and science. It is a place where women can find opportunities to fulfill their dream and overcome the challenges to prove their worth. We give them a platform to excel in their skills in the field of science and technology and contribute to the welfare of humanity. It also helps to improve their discipline, teamwork and organizing skill while working in a professional environment. WIE members make lifelong friendships, acquire influential mentors, and make a difference for the benefit of humanity.
-              </p>
 
-              <div className="flex justify-center">
-                <button className="btn-secondary-2">
-                  <FaEye className="w-5 h-5" />
-                  View More Details
-                </button>
-              </div>
+                IEEE RUET WIE SB AG is becoming a part of the leading team in changing the face of engineering. It is connected to the global network of nearly 20,000 members in over 100 countries to advance women in technology at all points in their life and career. It is a community that is working alongside IEEE RUET Student Branch to ensure an environment for women to grow, break the stereotype and be a role model. We are really very delighted to be a part of IEEE Women in Engineering, the largest technical organization aiming at helping women to advance in the several spheres of technical disciplines.
+
+                We hope that women who aspire to utilize their potential in science and technology will get benefitted from us and we will ensure every possible opportunity for them. We try to make sure that they can surpass the barriers of stereotype threat and implicit bias to participate in the betterment of humanity.
+              </p>
             </div>
 
             {/* Social Media Links */}

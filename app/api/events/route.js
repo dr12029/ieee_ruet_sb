@@ -1,13 +1,11 @@
 import { NextResponse } from 'next/server';
 import { eventsData, getUpcomingEvents, getPastEvents, getEventsByYear, getEventYears, getPastEventYears } from '@/data/eventsData';
+import connectDB from '@/lib/mongodb';
+import Event from '@/models/Event';
 
 /**
  * GET /api/events
  * Returns events data with optional filtering
- * Query params:
- * - type: 'upcoming' | 'past' | 'all'
- * - year: specific year (e.g., '2024')
- * - featured: 'true' to get only featured events
  */
 export async function GET(request) {
     try {
@@ -16,6 +14,45 @@ export async function GET(request) {
         const year = searchParams.get('year');
         const featured = searchParams.get('featured');
 
+        // Try MongoDB first
+        if (process.env.MONGODB_URI) {
+            try {
+                await connectDB();
+                let query = {};
+
+                if (type === 'upcoming') {
+                    query.upcoming = true;
+                } else if (type === 'past') {
+                    query.upcoming = false;
+                }
+
+                if (year) {
+                    query.year = parseInt(year);
+                }
+
+                if (featured === 'true') {
+                    query.featured = true;
+                }
+
+                const events = await Event.find(query).sort({ date: -1 }).lean();
+                
+                // Get years from DB
+                const allEvents = await Event.find({}, 'year').lean();
+                const years = [...new Set(allEvents.map(e => e.year?.toString()))].filter(Boolean).sort((a, b) => b - a);
+
+                return NextResponse.json({
+                    success: true,
+                    count: events.length,
+                    events,
+                    years
+                });
+            } catch (dbError) {
+                console.error('MongoDB connection failed, falling back to static data:', dbError);
+                // Fallback to static data below
+            }
+        }
+
+        // Fallback to static data
         let events;
         let availableYears;
 
@@ -24,24 +61,21 @@ export async function GET(request) {
             availableYears = getEventYears();
         } else if (type === 'past') {
             events = getPastEvents();
-            availableYears = getPastEventYears(); // Use past event years only
+            availableYears = getPastEventYears();
         } else if (year) {
             events = getEventsByYear(year).map(event => ({ ...event, year }));
             availableYears = getEventYears();
         } else {
-            // Return all events with year info
             events = [];
             for (const yr in eventsData) {
                 eventsData[yr].forEach(event => {
                     events.push({ ...event, year: yr });
                 });
             }
-            // Sort by date descending
             events.sort((a, b) => new Date(b.date) - new Date(a.date));
             availableYears = getEventYears();
         }
 
-        // Filter by featured if requested
         if (featured === 'true') {
             events = events.filter(event => event.featured);
         }
@@ -52,10 +86,40 @@ export async function GET(request) {
             events,
             years: availableYears
         });
+
     } catch (error) {
         console.error('Error fetching events:', error);
         return NextResponse.json(
             { success: false, error: 'Failed to fetch events' },
+            { status: 500 }
+        );
+    }
+}
+
+/**
+ * POST /api/events
+ * Create a new event
+ */
+export async function POST(request) {
+    try {
+        if (!process.env.MONGODB_URI) {
+            return NextResponse.json({ success: false, error: 'Database not configured' }, { status: 500 });
+        }
+
+        await connectDB();
+        const body = await request.json();
+        
+        const event = await Event.create(body);
+
+        return NextResponse.json({
+            success: true,
+            event
+        }, { status: 201 });
+
+    } catch (error) {
+        console.error('Error creating event:', error);
+        return NextResponse.json(
+            { success: false, error: error.message || 'Failed to create event' },
             { status: 500 }
         );
     }

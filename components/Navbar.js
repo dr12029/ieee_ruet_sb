@@ -3,8 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaUser, FaBars, FaTimes, FaChevronDown } from 'react-icons/fa';
+import { FaUser, FaBars, FaTimes, FaChevronDown, FaSignInAlt, FaTachometerAlt, FaSignOutAlt } from 'react-icons/fa';
 import { usePathname } from 'next/navigation';
+import { useSession, signOut } from 'next-auth/react';
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -12,6 +13,7 @@ const Navbar = () => {
     const [openDropdown, setOpenDropdown] = useState(null);
     const pathname = usePathname();
     const isHomePage = pathname === '/';
+    const { data: session, status } = useSession();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -31,6 +33,10 @@ const Navbar = () => {
 
     const toggleDropdown = (name) => {
         setOpenDropdown(openDropdown === name ? null : name);
+    };
+
+    const handleSignOut = () => {
+        signOut({ callbackUrl: '/' });
     };
 
     const navLinks = [
@@ -83,8 +89,8 @@ const Navbar = () => {
 
     return (
         <nav className={`fixed top-0 left-0 right-0 z-50 shadow-lg transition-all duration-700 ease-in-out ${isGradientNav
-                ? 'bg-linear-to-r from-blue-600 to-purple-600'
-                : 'bg-linear-to-r from-white to-gray-50'
+            ? 'bg-linear-to-r from-blue-600 to-purple-600'
+            : 'bg-linear-to-r from-white to-gray-50'
             }`}>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
@@ -114,7 +120,7 @@ const Navbar = () => {
                                             <FaChevronDown className="text-xs" />
                                         </button>
                                         {/* Dropdown Menu */}
-                                        <div className="absolute left-0 mt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out rounded-xl shadow-2xl py-3 z-50 backdrop-blur-lg border bg-white/95 border-gray-200/50">
+                                        <div className="absolute left-0 top-full mt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out rounded-xl shadow-2xl py-3 z-50 backdrop-blur-lg border bg-white/95 border-gray-200/50">
                                             {link.children.map((child, index) => (
                                                 <Link
                                                     key={child.name}
@@ -140,25 +146,49 @@ const Navbar = () => {
                     </div>
 
                     {/* Profile Icon (Desktop) */}
-                    <div className="hidden lg:flex items-center">
-                        <Link href="/admin">
-                            <button className={`p-2 rounded-full transition-all duration-500 ease-in-out ${isGradientNav ? 'text-white hover:bg-white hover:bg-opacity-20 hover:text-blue-600' : 'text-gray-800 hover:bg-gray-200'
-                                }`}>
-                                <FaUser className="text-xl" />
-                            </button>
-                        </Link>
+                    <div className="hidden lg:flex items-center relative group">
+                        <button
+                            className={`profile-button flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium transition-all duration-500 ease-in-out ${isGradientNav ? 'text-white hover:bg-white hover:bg-opacity-20 hover:text-blue-600' : 'text-gray-800 hover:bg-gray-200'
+                                }`}
+                        >
+                            <FaUser className="text-lg" />
+                            <FaChevronDown className="text-xs" />
+                        </button>
+
+                        {/* Profile Dropdown */}
+                        <div className="absolute right-0 top-full mt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 translate-y-2 transition-all duration-300 ease-in-out rounded-xl shadow-2xl py-3 z-50 backdrop-blur-lg border bg-white/95 border-gray-200/50">
+                            {status === 'loading' ? (
+                                <div className="px-5 py-2.5 text-sm text-gray-700">
+                                    Loading...
+                                </div>
+                            ) : session ? (
+                                <>
+                                    <Link
+                                        href="/admin/dashboard"
+                                        className="block px-5 py-2.5 text-sm font-medium transition-all duration-200 text-gray-700 hover:bg-linear-to-r hover:from-blue-50 hover:to-purple-50 hover:pl-6 hover:text-blue-600"
+                                    >
+                                        Dashboard
+                                    </Link>
+                                    <button
+                                        onClick={handleSignOut}
+                                        className="block w-full text-left px-5 py-2.5 text-sm font-medium transition-all duration-200 text-gray-700 hover:bg-linear-to-r hover:from-red-50 hover:to-pink-50 hover:pl-6 hover:text-red-600 border-t border-gray-200/10"
+                                    >
+                                        Sign Out
+                                    </button>
+                                </>
+                            ) : (
+                                <Link
+                                    href="/admin/login"
+                                    className="block px-5 py-2.5 text-sm font-medium transition-all duration-200 text-gray-700 hover:bg-linear-to-r hover:from-blue-50 hover:to-purple-50 hover:pl-6 hover:text-blue-600"
+                                >
+                                    Login
+                                </Link>
+                            )}
+                        </div>
                     </div>
 
                     {/* Mobile: Profile Icon + Hamburger */}
                     <div className="lg:hidden flex items-center gap-3">
-                        {/* Profile Icon (Mobile) */}
-                        <Link href="/admin">
-                            <button className={`p-2 rounded-full transition-all duration-500 ease-in-out ${isGradientNav ? 'text-white hover:bg-white hover:bg-opacity-20 hover:text-blue-600' : 'text-gray-800 hover:bg-gray-200'
-                                }`}>
-                                <FaUser className="text-lg" />
-                            </button>
-                        </Link>
-
                         {/* Hamburger Menu */}
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -215,6 +245,59 @@ const Navbar = () => {
                                 )}
                             </div>
                         ))}
+
+                        {/* Profile Section (Mobile) */}
+                        <div>
+                            <button
+                                onClick={() => toggleDropdown('Profile')}
+                                className={`w-full flex items-center justify-between px-3 py-2 rounded-md text-base font-medium transition-all duration-300 ${isGradientNav ? 'text-white hover:bg-white hover:bg-opacity-20 hover:text-blue-600' : 'text-gray-800 hover:bg-gray-200'
+                                    }`}
+                            >
+                                <span className="flex items-center gap-2">
+                                    <FaUser className="text-sm" />
+                                    Profile
+                                </span>
+                                <FaChevronDown className={`text-xs transition-transform duration-300 ${openDropdown === 'Profile' ? 'rotate-180' : ''
+                                    }`} />
+                            </button>
+                            <div className={`overflow-hidden transition-all duration-300 ${openDropdown === 'Profile' ? 'max-h-96' : 'max-h-0'
+                                }`}>
+                                <div className="ml-2 mt-1 rounded-lg backdrop-blur-sm border bg-gray-50/80 border-gray-200/50">
+                                    {status === 'loading' ? (
+                                        <div className="px-4 py-2.5 text-sm text-gray-700">
+                                            Loading...
+                                        </div>
+                                    ) : session ? (
+                                        <>
+                                            <Link
+                                                href="/admin/dashboard"
+                                                onClick={() => setMobileMenuOpen(false)}
+                                                className="block px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-700 hover:bg-linear-to-r hover:from-blue-50 hover:to-purple-50 hover:pl-5 hover:text-blue-600 rounded-t-lg"
+                                            >
+                                                Dashboard
+                                            </Link>
+                                            <button
+                                                onClick={() => {
+                                                    handleSignOut();
+                                                    setMobileMenuOpen(false);
+                                                }}
+                                                className="block w-full text-left px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-700 hover:bg-linear-to-r hover:from-red-50 hover:to-pink-50 hover:pl-5 hover:text-red-600 border-t border-gray-200/10 rounded-b-lg"
+                                            >
+                                                Sign Out
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <Link
+                                            href="/admin/login"
+                                            onClick={() => setMobileMenuOpen(false)}
+                                            className="block px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-700 hover:bg-linear-to-r hover:from-blue-50 hover:to-purple-50 hover:pl-5 hover:text-blue-600 rounded-lg"
+                                        >
+                                            Login
+                                        </Link>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

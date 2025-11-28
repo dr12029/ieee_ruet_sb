@@ -1028,9 +1028,13 @@ export function getUpcomingEvents() {
  */
 export function getPastEvents() {
     const past = [];
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     for (const year in eventsData) {
         eventsData[year].forEach(event => {
-            if (event.upcoming === false) {
+            const eventDate = new Date(event.date);
+            if (event.upcoming === false || eventDate < today) {
                 past.push({ ...event, year });
             }
         });

@@ -188,6 +188,24 @@ export default function EventDetailsPage() {
                                         </div>
                                     </div>
                                 )}
+
+                                {/* Dynamic Details */}
+                                {event.details && Object.entries(event.details).map(([key, value]) => {
+                                    // Skip keys we already displayed above
+                                    // if (['time', 'venue', 'participants', 'attendance'].includes(key)) return null;
+                                    
+                                    return (
+                                        <div key={key} className="flex items-start gap-3">
+                                            <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center shrink-0">
+                                                <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+                                            </div>
+                                            <div>
+                                                <p className="text-sm text-gray-500 font-medium capitalize">{key}</p>
+                                                <p className="text-gray-900 font-semibold">{value}</p>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
                             </div>
 
                             {/* Action Buttons */}

@@ -186,7 +186,7 @@ export default function GalleryPage() {
                                 {images.map((image, index) => (
                                     <div
                                         key={index}
-                                        className="relative w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-md aspect-square cursor-pointer group overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                                        className="relative w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] max-w-md aspect-video cursor-pointer group overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
                                         onClick={() => openImageModal(index)}
                                     >
                                         <Image
@@ -198,7 +198,7 @@ export default function GalleryPage() {
                                         />
                                         {/* Hover Overlay */}
                                         <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
-                                            <span className="text-white font-semibold text-sm px-3 py-1 bg-blue-600 rounded-full">
+                                            <span className="text-white font-semibold text-sm">
                                                 Click to view
                                             </span>
                                         </div>

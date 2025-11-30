@@ -1,6 +1,55 @@
+'use client';
+
 import Link from 'next/link';
+import { useState, useEffect } from 'react';
 
 const HeroSection = () => {
+  const [titleText, setTitleText] = useState('');
+  const [subtitleText, setSubtitleText] = useState('');
+  const [descText, setDescText] = useState('');
+  const [showButton, setShowButton] = useState(false);
+
+  const fullTitle = "IEEE";
+  const fullSubtitle = "RUET STUDENT BRANCH";
+  const fullDesc = "Rajshahi University of Engineering & Technology, Rajshahi-6204, Bangladesh";
+
+  useEffect(() => {
+    const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+    const typeWriter = async () => {
+      // Initial delay
+      await sleep(200);
+
+      // Type Title
+      for (let i = 0; i <= fullTitle.length; i++) {
+        setTitleText(fullTitle.substring(0, i));
+        await sleep(100);
+      }
+
+      // Start Subtitle and Description concurrently
+      const typeSubtitle = async () => {
+        for (let i = 0; i <= fullSubtitle.length; i++) {
+          setSubtitleText(fullSubtitle.substring(0, i));
+          await sleep(50);
+        }
+      };
+
+      const typeDesc = async () => {
+        for (let i = 0; i <= fullDesc.length; i++) {
+          setDescText(fullDesc.substring(0, i));
+          await sleep(20);
+        }
+      };
+
+      await Promise.all([typeSubtitle(), typeDesc()]);
+
+      await sleep(200);
+      setShowButton(true);
+    };
+
+    typeWriter();
+  }, []);
+
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-linear-to-br from-blue-100 via-indigo-50 to-purple-100 overflow-hidden">
       {/* Animated Background Circles */}
@@ -15,32 +64,34 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
         {/* IEEE Text */}
-        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-4 tracking-tight">
-          <span className="text-gray-900">IEEE</span>
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-4 tracking-tight min-h-[1.2em]">
+          <span className="text-gray-900">{titleText}</span>
         </h1>
 
         {/* RUET STUDENT BRANCH */}
-        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8 tracking-wide">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-8 tracking-wide min-h-[1.2em]">
           <span className="bg-linear-to-r from-blue-600 via-blue-500 to-cyan-500 bg-clip-text text-transparent drop-shadow-sm">
-            RUET STUDENT BRANCH
+            {subtitleText}
           </span>
         </h2>
 
         {/* Divider Line */}
-        <div className="w-full max-w-4xl mx-auto h-1 bg-linear-to-r from-transparent via-gray-800 to-transparent mb-8"></div>
+        <div className={`w-full max-w-4xl mx-auto h-1 bg-linear-to-r from-transparent via-gray-800 to-transparent mb-8 transition-opacity duration-1000 ${descText ? 'opacity-100' : 'opacity-0'}`}></div>
 
         {/* University Address */}
-        <p className="text-lg sm:text-xl md:text-2xl text-gray-800 font-semibold mb-12 max-w-3xl mx-auto">
-          Rajshahi University of Engineering & Technology, Rajshahi-6204, Bangladesh
+        <p className="text-lg sm:text-xl md:text-2xl text-gray-800 font-semibold mb-12 max-w-3xl mx-auto min-h-[1.5em]">
+          {descText}
         </p>
 
         {/* About Us Button */}
-        <Link href="/about/ruet-sb">
-          <button className="btn-primary group">
-            <span className="relative z-10">About Us</span>
-            <div className="btn-primary-shine -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-          </button>
-        </Link>
+        <div className={`transition-all duration-1000 transform ${showButton ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <Link href="/about/ruet-sb">
+            <button className="btn-primary group">
+              <span className="relative z-10">About Us</span>
+              <div className="btn-primary-shine -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+            </button>
+          </Link>
+        </div>
       </div>
 
       {/* Decorative Elements */}

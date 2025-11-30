@@ -81,7 +81,7 @@ export default function MembershipPage() {
                   href="https://www.ieee.org/membership/join/index.html"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-primary"
+                  className="btn-primary w-48 !py-3 !px-4 !text-base !rounded-xl justify-center"
                 >
                   Join IEEE
                 </a>
@@ -89,7 +89,7 @@ export default function MembershipPage() {
                   href="https://www.ieee.org/membership/societies/index.html"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-secondary-1"
+                  className="btn-secondary-1 w-48 !flex items-center justify-center !py-3 !px-4 !text-base !rounded-xl"
                 >
                   Join IEEE Society
                 </a>
@@ -101,7 +101,7 @@ export default function MembershipPage() {
                   href="https://www.ieee.org/membership/renew.html"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-secondary-2"
+                  className="btn-secondary-2 w-48 justify-center !py-3 !px-4 !text-base !rounded-xl"
                 >
                   Renew now!
                 </a>

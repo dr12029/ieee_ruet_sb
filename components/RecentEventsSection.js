@@ -3,7 +3,18 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaCalendarDay, FaArrowRight } from 'react-icons/fa';
+import { FaCalendarAlt, FaArrowRight, FaMapMarkerAlt } from 'react-icons/fa';
+
+const formatDate = (dateString) => {
+  if (!dateString) return 'Coming Soon';
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) return dateString;
+  return new Intl.DateTimeFormat('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  }).format(date);
+};
 
 export default function RecentEventsSection() {
   const [events, setEvents] = useState([]);
@@ -61,7 +72,7 @@ export default function RecentEventsSection() {
         {/* Section Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-3 bg-linear-to-r from-blue-600 to-cyan-500 text-white px-6 py-2 rounded-full mb-6 shadow-lg">
-            <FaCalendarDay className="w-5 h-5" />
+            <FaCalendarAlt className="w-5 h-5" />
             <span className="font-bold">RECENT HIGHLIGHTS</span>
           </div>
           <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
@@ -77,47 +88,52 @@ export default function RecentEventsSection() {
           {events.map((event, index) => (
             <div
               key={event.id}
-              className="group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
+              className="group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 flex flex-col p-5"
             >
-              {/* Image with overlay */}
-              <div className="relative h-64 overflow-hidden">
+              {/* Image (2:1 Aspect Ratio) */}
+              <div className="relative w-full aspect-[2/1] overflow-hidden rounded-2xl">
                 <Image
                   src={event.image}
                   alt={event.title}
                   fill
-                  className="object-cover transform group-hover:scale-110 transition-transform duration-700"
-                />)
+                  className="object-cover transition-transform duration-700"
+                />
                 {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500"></div>
               </div>
 
               {/* Content */}
-              <div className="p-6">
-                {/* Title */}
-                <h3 className="text-xl font-bold text-gray-900 mb-4 leading-tight min-h-14 line-clamp-2">
-                  {event.name}
+              <div className="p-6 flex flex-col flex-grow">
+                {/* Title (Min 3 lines space) */}
+                <h3 className="text-xl font-bold text-gray-900 mb-4 leading-tight line-clamp-3 min-h-[4.5em]">
+                  {event.name || event.title}
                 </h3>
 
-                {/* Date badge */}
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-linear-to-r from-blue-50 to-cyan-50 rounded-full mb-4">
-                  <FaCalendarDay className="w-4 h-4 text-blue-600" />
-                  <span className="text-sm font-semibold text-blue-600">
-                    {formatDate(event.date)}
-                  </span>
+                {/* Divider */}
+                <div className="w-full h-px bg-gray-200 mb-4"></div>
+
+                {/* Meta Info */}
+                <div className="space-y-2 mb-6 flex-grow">
+                  <div className="flex items-center gap-3 text-gray-700">
+                    <FaCalendarAlt className="text-blue-600 w-4 h-4 shrink-0" />
+                    <span className="text-sm font-medium">{formatDate(event.date)}</span>
+                  </div>
+                  <div className="flex items-center gap-3 text-gray-700">
+                    <FaMapMarkerAlt className="text-blue-600 w-4 h-4 shrink-0" />
+                    <span className="text-sm font-medium">{event.venue || 'RUET Campus'}</span>
+                  </div>
                 </div>
 
                 {/* View button */}
                 <Link
                   href={`/events/${event.id}`}
-                  className="group/btn inline-flex items-center gap-2 px-6 py-3 bg-linear-to-r from-blue-600 to-cyan-500 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 w-full justify-center"
+                  className="group/btn btn-primary w-full justify-center !py-3 !px-6 !text-sm !rounded-xl mt-auto"
                 >
-                  View Details
-                  <FaArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform duration-300" />
+                  <span className="relative z-10">View Event Details</span>
+                  <div className="btn-primary-shine -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000"></div>
+                  <FaArrowRight className="relative z-10 w-4 h-4" />
                 </Link>
               </div>
-
-              {/* Decorative element */}
-              <div className="absolute top-0 right-0 w-20 h-20 bg-linear-to-bl from-cyan-200/30 to-transparent rounded-bl-full"></div>
             </div>
           ))}
         </div>

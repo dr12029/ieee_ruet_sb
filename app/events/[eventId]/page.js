@@ -69,59 +69,61 @@ export default function EventDetailsPage() {
     }
 
     return (
-        <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-cyan-50">
+        <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-cyan-50 pt-24 pb-16">
             {/* Hero Section with Event Image */}
-            <div className="relative h-[500px] overflow-hidden">
-                <Image
-                    src={event.image}
-                    alt={event.name}
-                    fill
-                    className="object-cover"
-                    priority
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent" />
+            <div className="max-w-6xl mx-auto px-6 md:px-12 mb-8">
+                <div className="relative w-full aspect-[2/1] overflow-hidden rounded-3xl shadow-2xl">
+                    <Image
+                        src={event.image}
+                        alt={event.name}
+                        fill
+                        className="object-cover"
+                        priority
+                    />
+                    <div className="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent" />
 
-                {/* Back Button */}
-                <div className="absolute top-8 left-8">
-                    <Link
-                        href={isUpcoming(event.date) ? '/events/upcoming-events' : `/events/past-events/${event.year}`}
-                        className="btn btn-circle bg-white/20 backdrop-blur-md border-none hover:bg-white/30 text-white"
-                    >
-                        <FaArrowLeft className="text-xl" />
-                    </Link>
-                </div>
+                    {/* Back Button */}
+                    <div className="absolute top-10 left-4 md:top-14 md:left-8 z-10">
+                        <button
+                            onClick={() => router.back()}
+                            className="btn btn-circle bg-white/20 backdrop-blur-md border-none hover:bg-white/30 text-white"
+                        >
+                            <FaArrowLeft className="text-xl" />
+                        </button>
+                    </div>
 
-                {/* Event Title Overlay */}
-                <div className="absolute bottom-0 left-0 right-0 p-8">
-                    <div className="max-w-7xl mx-auto">
-                        <div className="flex items-center gap-3 mb-4">
-                            {event.featured && (
-                                <span className="badge bg-linear-to-r from-yellow-400 to-orange-500 border-none text-white px-4 py-3 gap-2">
-                                    <FaStar /> Featured Event
-                                </span>
-                            )}
-                            {isUpcoming(event.date) && (
-                                <span className="badge bg-linear-to-r from-green-400 to-emerald-500 border-none text-white px-4 py-3">
-                                    Upcoming
-                                </span>
-                            )}
-                        </div>
-                        <h1 className="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
-                            {event.name}
-                        </h1>
-                        <div className="flex items-center gap-2 text-white/90 text-lg">
-                            <FaCalendar />
-                            <span>{formatDate(event.date)}</span>
+                    {/* Event Title Overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
+                        <div className="max-w-5xl">
+                            <div className="flex flex-wrap items-center gap-3 mb-4">
+                                {event.featured && (
+                                    <span className="badge bg-linear-to-r from-yellow-400 to-orange-500 border-none text-white px-4 py-3 gap-2 shadow-lg">
+                                        <FaStar /> Featured Event
+                                    </span>
+                                )}
+                                {isUpcoming(event.date) && (
+                                    <span className="badge bg-linear-to-r from-green-400 to-emerald-500 border-none text-white px-4 py-3 shadow-lg">
+                                        Upcoming
+                                    </span>
+                                )}
+                            </div>
+                            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg leading-tight">
+                                {event.name}
+                            </h1>
+                            <div className="flex items-center gap-2 text-white/90 text-lg font-medium">
+                                <FaCalendar />
+                                <span>{formatDate(event.date)}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Event Details Content */}
-            <div className="max-w-7xl mx-auto px-4 py-16">
+            <div className="max-w-6xl mx-auto px-6 md:px-12">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Main Content */}
-                    <div className="lg:col-span-2">
+                    <div className="lg:col-span-2 order-2 lg:order-1">
                         <div className="bg-white rounded-2xl shadow-lg p-8">
                             <h2 className="text-3xl font-bold mb-6 text-gray-900">About This Event</h2>
                             <div className="prose prose-lg max-w-none text-gray-700 whitespace-pre-line">
@@ -131,7 +133,7 @@ export default function EventDetailsPage() {
                     </div>
 
                     {/* Sidebar */}
-                    <div className="lg:col-span-1">
+                    <div className="lg:col-span-1 order-1 lg:order-2">
                         {/* Quick Info Card */}
                         <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-24">
                             <h3 className="text-xl font-bold mb-4 text-gray-900">Quick Info</h3>

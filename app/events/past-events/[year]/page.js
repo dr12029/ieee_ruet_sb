@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaCalendar } from 'react-icons/fa';
+import { FaCalendarAlt, FaMapMarkerAlt, FaArrowRight } from 'react-icons/fa';
 import YearSelector from '@/components/YearSelector';
 
 export default function PastEventsPage() {
@@ -90,9 +90,9 @@ export default function PastEventsPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {events.map((event) => (
                             <div key={event.id}>
-                                <div className="bg-white rounded-2xl shadow-lg overflow-hidden h-full flex flex-col">
+                                <div className="bg-white rounded-2xl shadow-lg overflow-hidden h-full flex flex-col hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
                                     {/* Event Image */}
-                                    <div className="relative h-56 overflow-hidden">
+                                    <div className="relative w-full aspect-[2/1] overflow-hidden">
                                         <Image
                                             src={event.image}
                                             alt={event.name}
@@ -111,16 +111,27 @@ export default function PastEventsPage() {
                                     {/* Event Content */}
                                     <div className="p-6 flex-1 flex flex-col">
                                         {/* Event Name */}
-                                        <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+                                        <h3 className="text-2xl font-bold text-gray-900 mb-2 line-clamp-2 min-h-[4rem]">
                                             {event.name}
                                         </h3>
 
-                                        {/* Event Date */}
-                                        <div className="flex items-center gap-2 text-gray-600 mb-4">
-                                            <FaCalendar className="text-blue-500" />
-                                            <span className="text-sm font-medium">
-                                                {formatDate(event.date)}
-                                            </span>
+                                        {/* Spacer */}
+                                        <div className="h-4"></div>
+
+                                        {/* Date and Venue */}
+                                        <div className="flex justify-between items-center text-gray-600 mb-4">
+                                            <div className="flex items-center gap-2">
+                                                <FaCalendarAlt className="text-blue-500" />
+                                                <span className="text-sm font-medium">
+                                                    {formatDate(event.date)}
+                                                </span>
+                                            </div>
+                                            <div className="flex items-center gap-2">
+                                                <FaMapMarkerAlt className="text-blue-500" />
+                                                <span className="text-sm font-medium">
+                                                    {event.venue || 'RUET Campus'}
+                                                </span>
+                                            </div>
                                         </div>
 
                                         {/* Event Description */}
@@ -130,8 +141,10 @@ export default function PastEventsPage() {
 
                                         {/* View Details Button */}
                                         <Link href={`/events/${event.id}`}>
-                                            <button className="btn bg-linear-to-r from-blue-600 to-cyan-500 text-white border-none w-full hover:shadow-lg transition-all">
-                                                View Details
+                                            <button className="group btn-primary w-full justify-center !py-3 !text-base !rounded-xl">
+                                                <span className="relative z-10">View Details</span>
+                                                <div className="btn-primary-shine -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                                                <FaArrowRight className="relative z-10 ml-2" />
                                             </button>
                                         </Link>
                                     </div>
@@ -155,7 +168,7 @@ export default function PastEventsPage() {
                                         onClick={() => handleYearChange(years.find(y => y !== year) || years[0])}
                                         className="btn bg-linear-to-r from-blue-600 to-cyan-500 text-white border-none hover:shadow-xl transition-all"
                                     >
-                                        <FaCalendar className="mr-2" />
+                                        <FaCalendarAlt className="mr-2" />
                                         Browse Other Years
                                     </button>
                                 )}

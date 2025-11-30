@@ -116,7 +116,7 @@ export default function UpcomingEventsSection() {
               <div className="w-full md:w-5/12 flex flex-col order-2 md:order-1 relative z-10">
                 {/* Title - Grows to fill space */}
                 <div className="flex-grow">
-                  <h3 className="text-2xl md:text-3xl font-black text-gray-900 mb-4 leading-tight line-clamp-4 min-h-[4.5em] md:min-h-0">
+                  <h3 className="text-2xl md:text-3xl font-black text-gray-900 mb-4 leading-tight line-clamp-4 min-h-[3em] md:min-h-0">
                     {event.name || event.title}
                   </h3>
                 </div>

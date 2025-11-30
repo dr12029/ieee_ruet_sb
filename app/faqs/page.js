@@ -4,10 +4,14 @@ import { useState } from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 export default function FAQs() {
-    const [openIndex, setOpenIndex] = useState(null);
+    const [openIndices, setOpenIndices] = useState([]);
 
     const toggleAccordion = (index) => {
-        setOpenIndex(openIndex === index ? null : index);
+        setOpenIndices(prev =>
+            prev.includes(index)
+                ? prev.filter(i => i !== index)
+                : [...prev, index]
+        );
     };
 
     const faqsColumn1 = [
@@ -263,7 +267,7 @@ export default function FAQs() {
                                 question={faq.question}
                                 answer={faq.answer}
                                 index={index}
-                                isOpen={openIndex === index}
+                                isOpen={openIndices.includes(index)}
                                 toggle={toggleAccordion}
                             />
                         ))}

@@ -92,8 +92,8 @@ export default function EventDetailsPage() {
                         </button>
                     </div>
 
-                    {/* Event Title Overlay */}
-                    <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
+                    {/* Event Title Overlay - Desktop Only */}
+                    <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12 hidden md:block">
                         <div className="max-w-5xl">
                             <div className="flex flex-wrap items-center gap-3 mb-4">
                                 {event.featured && (
@@ -115,6 +115,29 @@ export default function EventDetailsPage() {
                                 <span>{formatDate(event.date)}</span>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                {/* Event Title - Mobile Only (Below Image) */}
+                <div className="mt-6 md:hidden">
+                    <div className="flex flex-wrap items-center gap-3 mb-4">
+                        {event.featured && (
+                            <span className="badge bg-linear-to-r from-yellow-400 to-orange-500 border-none text-white px-4 py-3 gap-2 shadow-lg">
+                                <FaStar /> Featured Event
+                            </span>
+                        )}
+                        {isUpcoming(event.date) && (
+                            <span className="badge bg-linear-to-r from-green-400 to-emerald-500 border-none text-white px-4 py-3 shadow-lg">
+                                Upcoming
+                            </span>
+                        )}
+                    </div>
+                    <h1 className="text-3xl font-bold text-gray-900 mb-4 leading-tight">
+                        {event.name}
+                    </h1>
+                    <div className="flex items-center gap-2 text-gray-600 text-lg font-medium">
+                        <FaCalendar className="text-blue-600" />
+                        <span>{formatDate(event.date)}</span>
                     </div>
                 </div>
             </div>
@@ -195,7 +218,7 @@ export default function EventDetailsPage() {
                                 {event.details && Object.entries(event.details).map(([key, value]) => {
                                     // Skip keys we already displayed above
                                     // if (['time', 'venue', 'participants', 'attendance'].includes(key)) return null;
-                                    
+
                                     return (
                                         <div key={key} className="flex items-start gap-3">
                                             <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center shrink-0">

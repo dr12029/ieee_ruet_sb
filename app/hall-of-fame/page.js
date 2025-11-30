@@ -31,7 +31,7 @@ const colorVariants = {
 
 const ChapterTable = ({ title, members, color }) => {
   const styles = colorVariants[color] || colorVariants.blue;
-  
+
   return (
     <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300 break-inside-avoid mb-8">
       <h3 className={`text-2xl font-bold mb-4 pb-3 border-b-2 ${styles.title}`}>

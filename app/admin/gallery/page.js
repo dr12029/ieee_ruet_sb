@@ -159,12 +159,33 @@ export default function AdminGalleryPage() {
     });
   };
 
+  const generateSlug = (text) => {
+    return text
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, '') // Remove special characters
+      .replace(/\s+/g, '_') // Replace spaces with underscores
+      .replace(/-+/g, '_') // Replace hyphens with underscores
+      .replace(/_+/g, '_') // Replace multiple underscores with single
+      .trim();
+  };
+
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
+    
+    // Auto-generate slug when event name changes (only if not editing)
+    if (name === 'eventName' && !editingGallery) {
+      const slug = generateSlug(value);
+      setFormData(prev => ({
+        ...prev,
+        eventName: value,
+        eventSlug: slug
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: type === 'checkbox' ? checked : value
+      }));
+    }
   };
 
   if (loading) return <div className="flex justify-center items-center h-screen">Loading galleries...</div>;

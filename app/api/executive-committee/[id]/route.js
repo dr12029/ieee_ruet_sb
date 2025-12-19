@@ -10,7 +10,7 @@ import { authOptions } from "@/lib/auth";
  */
 export async function GET(request, { params }) {
     try {
-        const { id } = params;
+        const { id } = await params;
         
         await connectDB();
         const member = await ExecutiveCommittee.findById(id).lean();
@@ -56,7 +56,7 @@ export async function PUT(request, { params }) {
             );
         }
 
-        const { id } = params;
+        const { id } = await params;
         const data = await request.json();
 
         await connectDB();
@@ -122,7 +122,7 @@ export async function DELETE(request, { params }) {
             );
         }
 
-        const { id } = params;
+        const { id } = await params;
 
         await connectDB();
         const member = await ExecutiveCommittee.findByIdAndDelete(id);

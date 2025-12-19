@@ -166,6 +166,7 @@ export default function AdminGalleryPage() {
       isPublished: gallery.isPublished !== undefined ? gallery.isPublished : true,
     });
     setShowForm(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const resetForm = () => {
@@ -265,6 +266,7 @@ export default function AdminGalleryPage() {
             setShowForm(!showForm);
             setEditingGallery(null);
             resetForm();
+            if (!showForm) window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
           className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded flex items-center gap-2"
         >

@@ -190,6 +190,27 @@ export default function AdminGalleryPage() {
       .trim();
   };
 
+  // Group events by year, sorted from latest to earliest
+  const getGroupedEvents = () => {
+    const grouped = {};
+    
+    events.forEach(event => {
+      const year = new Date(event.date).getFullYear().toString();
+      if (!grouped[year]) {
+        grouped[year] = [];
+      }
+      grouped[year].push(event);
+    });
+
+    // Sort years in descending order (latest first)
+    const sortedYears = Object.keys(grouped).sort((a, b) => b - a);
+    
+    return sortedYears.map(year => ({
+      year,
+      events: grouped[year].sort((a, b) => new Date(b.date) - new Date(a.date))
+    }));
+  };
+
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     
@@ -320,10 +341,14 @@ export default function AdminGalleryPage() {
                 className="w-full border rounded px-3 py-2"
               >
                 <option value="">-- Standalone Gallery (No Event Link) --</option>
-                {events.map(event => (
-                  <option key={event.id} value={event.id}>
-                    {event.name} ({new Date(event.date).getFullYear()})
-                  </option>
+                {getGroupedEvents().map(({ year, events: yearEvents }) => (
+                  <optgroup key={year} label={year}>
+                    {yearEvents.map(event => (
+                      <option key={event.id} value={event.id}>
+                        {event.name} ({new Date(event.date).toLocaleDateString()})
+                      </option>
+                    ))}
+                  </optgroup>
                 ))}
               </select>
               <p className="text-xs text-gray-500 mt-1">

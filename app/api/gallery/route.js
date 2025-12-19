@@ -1,85 +1,132 @@
 import { NextResponse } from 'next/server';
-import fs from 'fs';
-import path from 'path';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth';
+import connectDB from '@/lib/mongodb';
+import Gallery from '@/models/Gallery';
+import { galleryData } from '@/data/galleryData';
 
-/**
- * Formats event folder name into a readable display name
- * @param {string} folderName - The folder name (e.g., "ieee_day_2019")
- * @returns {string} Formatted name (e.g., "IEEE Day 2019")
- */
-function formatEventName(folderName) {
-    return folderName
-        .split('_')
-        .map(word => {
-            // Uppercase known acronyms
-            const acronyms = ['ieee', 'agm', 'ai', 'iot', 'pcb', 'ras', 'wie', 'pes', 'ict', 'ielts', 'matlab'];
-            if (acronyms.includes(word.toLowerCase())) {
-                return word.toUpperCase();
-            }
-            // Capitalize first letter of other words
-            return word.charAt(0).toUpperCase() + word.slice(1);
-        })
-        .join(' ');
+// GET all gallery items
+export async function GET(request) {
+  try {
+    await connectDB();
+    
+    const { searchParams } = new URL(request.url);
+    const year = searchParams.get('year');
+    const eventSlug = searchParams.get('eventSlug');
+    const isPublished = searchParams.get('isPublished');
+
+    let query = {};
+
+    if (year) {
+      query.year = year;
+    }
+
+    if (eventSlug) {
+      query.eventSlug = eventSlug;
+    }
+
+    if (isPublished !== null && isPublished !== undefined) {
+      query.isPublished = isPublished === 'true';
+    }
+
+    const galleries = await Gallery.find(query).sort({ year: -1, displayOrder: 1, eventName: 1 });
+
+    // Get unique years and event slugs for filters
+    const years = [...new Set(galleries.map(g => g.year))].sort((a, b) => b.localeCompare(a));
+    const eventSlugs = [...new Set(galleries.map(g => g.eventSlug))].sort();
+
+    // Transform to frontend-expected format
+    const galleryByYear = {};
+    galleries.forEach(item => {
+      if (!galleryByYear[item.year]) {
+        galleryByYear[item.year] = {};
+      }
+      galleryByYear[item.year][item.eventSlug] = {
+        name: item.eventName,
+        images: item.images,
+      };
+    });
+
+    return NextResponse.json({
+      success: true,
+      galleries: galleryByYear,
+      items: galleries, // Also return flat list for admin
+      years,
+      eventSlugs,
+    });
+  } catch (error) {
+    console.error('Error fetching gallery:', error);
+    
+    // Fallback to static data
+    const years = Object.keys(galleryData).sort((a, b) => b.localeCompare(a));
+    const eventSlugs = [];
+    Object.values(galleryData).forEach(yearData => {
+      eventSlugs.push(...Object.keys(yearData));
+    });
+
+    return NextResponse.json({
+      success: true,
+      galleries: galleryData,
+      items: [],
+      years,
+      eventSlugs: [...new Set(eventSlugs)].sort(),
+      fallback: true,
+    });
+  }
 }
 
-/**
- * GET /api/gallery
- * Scans the gallery directory and returns structured data with all years, events, and images
- */
-export async function GET() {
-    const galleryPath = path.join(process.cwd(), 'public', 'gallery');
-    const galleryData = {};
-
-    try {
-        // Check if gallery directory exists
-        if (!fs.existsSync(galleryPath)) {
-            console.warn('Gallery directory not found:', galleryPath);
-            return NextResponse.json({});
-        }
-
-        // Read all year folders
-        const years = fs.readdirSync(galleryPath, { withFileTypes: true })
-            .filter(dirent => dirent.isDirectory())
-            .map(dirent => dirent.name)
-            .sort((a, b) => b.localeCompare(a)); // Sort descending (newest first)
-
-        years.forEach(year => {
-            const yearPath = path.join(galleryPath, year);
-            galleryData[year] = {};
-
-            // Read all event folders within this year
-            const events = fs.readdirSync(yearPath, { withFileTypes: true })
-                .filter(dirent => dirent.isDirectory())
-                .map(dirent => dirent.name)
-                .sort(); // Sort alphabetically
-
-            events.forEach(event => {
-                const eventPath = path.join(yearPath, event);
-
-                // Read all image files in this event folder
-                const images = fs.readdirSync(eventPath)
-                    .filter(file => /\.(jpg|jpeg|png|gif|webp)$/i.test(file))
-                    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' })) // Natural sort
-                    .map(file => `/gallery/${year}/${event}/${file}`);
-
-                // Only include events that have at least one image
-                if (images.length > 0) {
-                    galleryData[year][event] = {
-                        name: formatEventName(event),
-                        images: images,
-                    };
-                }
-            });
-
-            // Remove year if it has no events with images
-            if (Object.keys(galleryData[year]).length === 0) {
-                delete galleryData[year];
-            }
-        });
-
-        return NextResponse.json(galleryData);
-    } catch (error) {
-        console.error('Error reading gallery directory:', error);
-        return NextResponse.json({ error: 'Failed to load gallery data' }, { status: 500 });
+// POST create new gallery item
+export async function POST(request) {
+  try {
+    const session = await getServerSession(authOptions);
+    
+    if (!session) {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized' },
+        { status: 401 }
+      );
     }
+
+    await connectDB();
+
+    const body = await request.json();
+    const { year, eventSlug, eventName, images, displayOrder, isPublished } = body;
+
+    // Validation
+    if (!year || !eventSlug || !eventName) {
+      return NextResponse.json(
+        { success: false, error: 'Year, event slug, and event name are required' },
+        { status: 400 }
+      );
+    }
+
+    // Check for duplicate
+    const existing = await Gallery.findOne({ year, eventSlug });
+    if (existing) {
+      return NextResponse.json(
+        { success: false, error: 'Gallery item with this year and event slug already exists' },
+        { status: 400 }
+      );
+    }
+
+    const gallery = await Gallery.create({
+      year,
+      eventSlug,
+      eventName,
+      images: images || [],
+      displayOrder: displayOrder || 0,
+      isPublished: isPublished !== undefined ? isPublished : true,
+    });
+
+    return NextResponse.json({
+      success: true,
+      gallery,
+    }, { status: 201 });
+  } catch (error) {
+    console.error('Error creating gallery item:', error);
+    return NextResponse.json(
+      { success: false, error: error.message },
+      { status: 500 }
+    );
+  }
 }

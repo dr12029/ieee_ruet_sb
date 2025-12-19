@@ -21,9 +21,12 @@ export default function GalleryPage() {
             try {
                 const response = await fetch('/api/gallery');
                 const data = await response.json();
-                setGalleryData(data);
+                
+                // Use galleries data from API (structured by year)
+                const galleries = data.success ? data.galleries : data;
+                setGalleryData(galleries);
 
-                const availableYears = Object.keys(data).sort((a, b) => b.localeCompare(a));
+                const availableYears = Object.keys(galleries).sort((a, b) => b.localeCompare(a));
                 setYears(availableYears);
                 setSelectedYear(availableYears[0] || '');
             } catch (error) {

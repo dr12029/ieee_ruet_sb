@@ -2,6 +2,11 @@ import mongoose from 'mongoose';
 
 const GallerySchema = new mongoose.Schema(
   {
+    eventId: {
+      type: String,
+      default: null,
+      index: true,
+    },
     year: {
       type: String,
       required: true,

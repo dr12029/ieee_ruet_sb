@@ -9,7 +9,7 @@ export async function GET(request, { params }) {
   try {
     await connectDB();
     
-    const { id } = params;
+    const { id } = await params;
     const gallery = await Gallery.findById(id);
 
     if (!gallery) {
@@ -46,9 +46,9 @@ export async function PUT(request, { params }) {
 
     await connectDB();
 
-    const { id } = params;
+    const { id } = await params;
     const body = await request.json();
-    const { year, eventSlug, eventName, images, displayOrder, isPublished } = body;
+    const { eventId, year, eventSlug, eventName, images, displayOrder, isPublished } = body;
 
     // Validation
     if (!year || !eventSlug || !eventName) {
@@ -75,6 +75,7 @@ export async function PUT(request, { params }) {
     const gallery = await Gallery.findByIdAndUpdate(
       id,
       {
+        eventId: eventId || null,
         year,
         eventSlug,
         eventName,
@@ -119,7 +120,7 @@ export async function DELETE(request, { params }) {
 
     await connectDB();
 
-    const { id } = params;
+    const { id } = await params;
     const gallery = await Gallery.findByIdAndDelete(id);
 
     if (!gallery) {

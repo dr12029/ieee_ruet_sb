@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaCalendar, FaMapMarkerAlt, FaClock, FaUsers, FaFacebook, FaArrowLeft, FaStar } from 'react-icons/fa';
+import { FaCalendar, FaMapMarkerAlt, FaClock, FaUsers, FaFacebook, FaArrowLeft, FaStar, FaImages } from 'react-icons/fa';
 
 export default function EventDetailsPage() {
     const params = useParams();
@@ -12,6 +12,7 @@ export default function EventDetailsPage() {
     const eventId = params.eventId;
 
     const [event, setEvent] = useState(null);
+    const [hasGallery, setHasGallery] = useState(false);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -23,6 +24,14 @@ export default function EventDetailsPage() {
 
                 if (foundEvent) {
                     setEvent(foundEvent);
+                    
+                    // Check if this event has a linked gallery
+                    const galleryResponse = await fetch('/api/gallery');
+                    const galleryData = await galleryResponse.json();
+                    if (galleryData.success) {
+                        const linkedGallery = galleryData.items.find(g => g.eventId === eventId);
+                        setHasGallery(!!linkedGallery);
+                    }
                 } else {
                     router.push('/events/upcoming-events');
                 }
@@ -235,6 +244,16 @@ export default function EventDetailsPage() {
 
                             {/* Action Buttons */}
                             <div className="mt-6 pt-6 border-t border-gray-200 space-y-3">
+                                {hasGallery && (
+                                    <Link
+                                        href="/gallery"
+                                        className="btn bg-linear-to-r from-purple-600 to-pink-600 text-white border-none w-full hover:shadow-xl transition-all"
+                                    >
+                                        <FaImages className="mr-2" />
+                                        View Gallery
+                                    </Link>
+                                )}
+                                
                                 <a
                                     href="https://www.facebook.com/ieeesbruet"
                                     target="_blank"

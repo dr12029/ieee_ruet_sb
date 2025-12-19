@@ -11,6 +11,7 @@ export default function AdminGalleryPage() {
   const [editingGallery, setEditingGallery] = useState(null);
   const [years, setYears] = useState([]);
   const [eventSlugs, setEventSlugs] = useState([]);
+  const [events, setEvents] = useState([]);
   
   // Filters
   const [selectedYear, setSelectedYear] = useState('');
@@ -19,6 +20,7 @@ export default function AdminGalleryPage() {
 
   // Form state
   const [formData, setFormData] = useState({
+    eventId: '',
     year: '',
     eventSlug: '',
     eventName: '',
@@ -29,6 +31,7 @@ export default function AdminGalleryPage() {
 
   useEffect(() => {
     fetchGalleries();
+    fetchEvents();
   }, []);
 
   useEffect(() => {
@@ -40,6 +43,7 @@ export default function AdminGalleryPage() {
       const res = await fetch('/api/gallery');
       const data = await res.json();
       if (data.success) {
+        console.log('Fetched galleries:', data.items); // Debug log
         setGalleries(data.items || []);
         setYears(data.years || []);
         setEventSlugs(data.eventSlugs || []);
@@ -48,6 +52,18 @@ export default function AdminGalleryPage() {
       console.error('Failed to fetch galleries', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchEvents = async () => {
+    try {
+      const res = await fetch('/api/events');
+      const data = await res.json();
+      if (data.success) {
+        setEvents(data.events || []);
+      }
+    } catch (error) {
+      console.error('Failed to fetch events', error);
     }
   };
 
@@ -101,8 +117,11 @@ export default function AdminGalleryPage() {
 
       const payload = {
         ...formData,
+        eventId: formData.eventId || null, // Ensure empty string becomes null
         images: imageArray,
       };
+
+      console.log('Submitting payload:', payload); // Debug log
 
       const url = editingGallery 
         ? `/api/gallery/${editingGallery._id}`
@@ -138,6 +157,7 @@ export default function AdminGalleryPage() {
   const handleEdit = (gallery) => {
     setEditingGallery(gallery);
     setFormData({
+      eventId: gallery.eventId || '',
       year: gallery.year || '',
       eventSlug: gallery.eventSlug || '',
       eventName: gallery.eventName || '',
@@ -150,6 +170,7 @@ export default function AdminGalleryPage() {
 
   const resetForm = () => {
     setFormData({
+      eventId: '',
       year: '',
       eventSlug: '',
       eventName: '',
@@ -172,8 +193,32 @@ export default function AdminGalleryPage() {
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     
-    // Auto-generate slug when event name changes (only if not editing)
-    if (name === 'eventName' && !editingGallery) {
+    // Handle event selection - auto-fill year, eventSlug, and eventName
+    if (name === 'eventId') {
+      if (value) {
+        const selectedEvent = events.find(event => event.id === value);
+        if (selectedEvent) {
+          const eventYear = new Date(selectedEvent.date).getFullYear().toString();
+          setFormData(prev => ({
+            ...prev,
+            eventId: value,
+            year: eventYear,
+            eventSlug: selectedEvent.id,
+            eventName: selectedEvent.name
+          }));
+        }
+      } else {
+        // Clear event reference - user can manually enter data
+        setFormData(prev => ({
+          ...prev,
+          eventId: ''
+        }));
+      }
+      return;
+    }
+    
+    // Auto-generate slug when event name changes (only if not editing and no event selected)
+    if (name === 'eventName' && !editingGallery && !formData.eventId) {
       const slug = generateSlug(value);
       setFormData(prev => ({
         ...prev,
@@ -266,31 +311,24 @@ export default function AdminGalleryPage() {
             {editingGallery ? 'Edit Gallery Item' : 'Add New Gallery Item'}
           </h2>
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-1">Year *</label>
-              <input
-                type="text"
-                name="year"
-                value={formData.year}
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium mb-1">Link to Existing Event (Optional)</label>
+              <select
+                name="eventId"
+                value={formData.eventId}
                 onChange={handleInputChange}
-                required
-                placeholder="e.g., 2025"
                 className="w-full border rounded px-3 py-2"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium mb-1">Event Slug *</label>
-              <input
-                type="text"
-                name="eventSlug"
-                value={formData.eventSlug}
-                onChange={handleInputChange}
-                required
-                placeholder="e.g., ieee_day"
-                className="w-full border rounded px-3 py-2"
-              />
-              <p className="text-xs text-gray-500 mt-1">Use lowercase with underscores</p>
+              >
+                <option value="">-- Standalone Gallery (No Event Link) --</option>
+                {events.map(event => (
+                  <option key={event.id} value={event.id}>
+                    {event.name} ({new Date(event.date).getFullYear()})
+                  </option>
+                ))}
+              </select>
+              <p className="text-xs text-gray-500 mt-1">
+                Link this gallery to an existing event to auto-fill details, or leave blank for standalone gallery
+              </p>
             </div>
 
             <div>
@@ -303,7 +341,47 @@ export default function AdminGalleryPage() {
                 required
                 placeholder="e.g., IEEE Day 2025"
                 className="w-full border rounded px-3 py-2"
+                disabled={!!formData.eventId}
               />
+              {formData.eventId && (
+                <p className="text-xs text-blue-500 mt-1">Auto-filled from selected event</p>
+              )}
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1">Event Slug (Auto-fillable/editable) *</label>
+              <input
+                type="text"
+                name="eventSlug"
+                value={formData.eventSlug}
+                onChange={handleInputChange}
+                required
+                placeholder="e.g., ieee_day"
+                className="w-full border rounded px-3 py-2"
+                disabled={!!formData.eventId}
+              />
+              {formData.eventId ? (
+                <p className="text-xs text-blue-500 mt-1">Auto-filled from selected event</p>
+              ) : (
+                <p className="text-xs text-gray-500 mt-1">Use lowercase with underscores</p>
+              )}
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium mb-1">Year *</label>
+              <input
+                type="text"
+                name="year"
+                value={formData.year}
+                onChange={handleInputChange}
+                required
+                placeholder="e.g., 2025"
+                className="w-full border rounded px-3 py-2"
+                disabled={!!formData.eventId}
+              />
+              {formData.eventId && (
+                <p className="text-xs text-blue-500 mt-1">Auto-filled from selected event</p>
+              )}
             </div>
 
             <div>
@@ -383,6 +461,7 @@ export default function AdminGalleryPage() {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Event Slug</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Event Name</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Images</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Linked Event</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
               </tr>
@@ -390,7 +469,7 @@ export default function AdminGalleryPage() {
             <tbody className="bg-white divide-y divide-gray-200">
               {filteredGalleries.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="px-6 py-8 text-center text-gray-500">
+                  <td colSpan="7" className="px-6 py-8 text-center text-gray-500">
                     No gallery items found. {galleries.length > 0 ? 'Try adjusting your filters.' : 'Add your first gallery item!'}
                   </td>
                 </tr>
@@ -410,6 +489,17 @@ export default function AdminGalleryPage() {
                       <div className="text-sm text-gray-500 flex items-center gap-1">
                         <FaImage /> {gallery.images?.length || 0}
                       </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {gallery.eventId ? (
+                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                          Linked
+                        </span>
+                      ) : (
+                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-600">
+                          Standalone
+                        </span>
+                      )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${

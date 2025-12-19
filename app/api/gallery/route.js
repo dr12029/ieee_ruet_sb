@@ -90,7 +90,9 @@ export async function POST(request) {
     await connectDB();
 
     const body = await request.json();
-    const { year, eventSlug, eventName, images, displayOrder, isPublished } = body;
+    const { eventId, year, eventSlug, eventName, images, displayOrder, isPublished } = body;
+
+    console.log('API received eventId:', eventId); // Debug log
 
     // Validation
     if (!year || !eventSlug || !eventName) {
@@ -110,6 +112,7 @@ export async function POST(request) {
     }
 
     const gallery = await Gallery.create({
+      eventId: eventId || null,
       year,
       eventSlug,
       eventName,
@@ -117,6 +120,8 @@ export async function POST(request) {
       displayOrder: displayOrder || 0,
       isPublished: isPublished !== undefined ? isPublished : true,
     });
+
+    console.log('Created gallery with eventId:', gallery.eventId); // Debug log
 
     return NextResponse.json({
       success: true,

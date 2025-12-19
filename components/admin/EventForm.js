@@ -135,7 +135,7 @@ export default function EventForm({ initialData = {}, isEdit = false }) {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">Event ID (Unique)</label>
+          <label className="block text-gray-700 text-sm font-bold mb-2">Event ID (Auto-fillable/editable)</label>
           <input
             type="text"
             name="id"

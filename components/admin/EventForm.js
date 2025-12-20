@@ -22,6 +22,16 @@ export default function EventForm({ initialData = {}, isEdit = false }) {
   const [detailKey, setDetailKey] = useState('');
   const [detailValue, setDetailValue] = useState('');
 
+  const generateSlug = (text) => {
+    return text
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, '') // Remove special characters
+      .replace(/\s+/g, '_') // Replace spaces with underscores
+      .replace(/-+/g, '_') // Replace hyphens with underscores
+      .replace(/_+/g, '_') // Replace multiple underscores with single
+      .trim();
+  };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     
@@ -30,6 +40,12 @@ export default function EventForm({ initialData = {}, isEdit = false }) {
         ...prev,
         [name]: type === 'checkbox' ? checked : value
       };
+
+      // Auto-generate event ID from event name (only when creating new event)
+      if (name === 'name' && !isEdit) {
+        const slug = generateSlug(value);
+        newData.id = slug;
+      }
 
       // Auto-update upcoming status when date changes
       if (name === 'date') {
@@ -107,19 +123,6 @@ export default function EventForm({ initialData = {}, isEdit = false }) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">Event ID (Unique)</label>
-          <input
-            type="text"
-            name="id"
-            value={formData.id}
-            onChange={handleChange}
-            disabled={isEdit}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline disabled:bg-gray-200"
-            required
-          />
-        </div>
-
-        <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2">Event Name</label>
           <input
             type="text"
@@ -127,6 +130,19 @@ export default function EventForm({ initialData = {}, isEdit = false }) {
             value={formData.name}
             onChange={handleChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            required
+          />
+        </div>
+
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2">Event ID (Auto-fillable/editable)</label>
+          <input
+            type="text"
+            name="id"
+            value={formData.id}
+            onChange={handleChange}
+            disabled={isEdit}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline disabled:bg-gray-200"
             required
           />
         </div>

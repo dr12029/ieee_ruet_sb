@@ -1,53 +1,56 @@
-# Backend Integration Guide - Executive Committee
+# Executive Committee Backend API Documentation
 
 ## Overview
-The Executive Committee page displays current committee members with their positions, photos, contact information, and social media links.
+This document describes the API endpoints for managing IEEE RUET SB Executive Committee members. The system supports both current executive committee members and historical members (Hall of Fame).
+
+**Status:** ✅ Implemented and Integrated
 
 ---
 
-## Current Implementation
+## Model Schema
 
-### Data Structure
-**File**: `data/executiveMembers.js`
-
-```javascript
-export const executiveMembers = [
-    {
-        id: 1,
-        name: "Member Name",
-        position: "Chairperson",
-        department: "CSE",
-        session: "2021-22",
-        image: "/team/photo.jpg",
-        email: "member@example.com",
-        phone: "+880...",
-        linkedin: "https://linkedin.com/in/username",
-        facebook: "https://facebook.com/username"
-    },
-    // More members...
-];
-```
-
-### Positions Hierarchy
-1. Chairperson
-2. Vice Chairperson
-3. General Secretary
-4. Treasurer
-5. Joint Secretary
-6. Organizing Secretary
-7. Public Relations Officer
-8. Technical Secretary
-9. Design Secretary
-10. Content Secretary
-
----
-
-## Database Schema
-
-### MongoDB Schema
+### ExecutiveCommittee Model
+**File:** `models/ExecutiveCommittee.js`
 
 ```javascript
-// Executive Members Collection
+{
+  // Basic Information
+  name: String (required, max 100 chars)
+  position: String (required, max 100 chars) // e.g., "Chair", "Secretary", "Advisor"
+  organization: String (required, enum) // Organization type
+  
+  // Session/Year Information
+  session: String (required, indexed) // e.g., "2024-25"
+  
+  // Member Type
+  memberType: String (required, enum) // "counselor", "advisor", "executive"
+  
+  // Academic/Professional Information
+  designation: String // e.g., "Professor", "Associate Professor"
+  department: String // e.g., "Dept. of EEE"
+  studentYear: String // e.g., "3rd Year", "4th Year"
+  university: String // Default: "Rajshahi University of Engineering & Technology"
+  
+  // Contact Information
+  email: String (lowercase)
+  
+  // Social Media & Web Links
+  linkedin: String
+  facebook: String
+  website: String
+  
+  // Media
+  image: String (required) // Image URL or path
+  
+  // Display Settings
+  displayOrder: Number (default: 0) // For controlling display order
+  featured_member: Boolean (default: false)
+  isActive: Boolean (default: true) // true = current committee, false = hall of fame
+  
+  // Timestamps
+  createdAt: Date (auto-generated)
+  updatedAt: Date (auto-generated)
+}
 {
     _id: ObjectId("..."),
     name: "Member Name",                    // String: Full name

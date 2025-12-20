@@ -42,6 +42,12 @@ export default function AdminLayout({ children }) {
           <Link href="/admin/events" className={`block p-2 rounded hover:bg-gray-700 ${pathname.startsWith('/admin/events') ? 'bg-gray-700' : ''}`}>
             Events
           </Link>
+          <Link href="/admin/executive-committee" className={`block p-2 rounded hover:bg-gray-700 ${pathname.startsWith('/admin/executive-committee') ? 'bg-gray-700' : ''}`}>
+            Executive Committee
+          </Link>
+          <Link href="/admin/gallery" className={`block p-2 rounded hover:bg-gray-700 ${pathname.startsWith('/admin/gallery') ? 'bg-gray-700' : ''}`}>
+            Gallery
+          </Link>
           {/* Add more links here */}
         </nav>
         <div className="p-4 border-t border-gray-700">

@@ -10,14 +10,14 @@ export const metadata = {
         default: "IEEE RUET Student Branch",
         template: "%s | IEEE RUET Student Branch",
     },
-    description: "IEEE RUET SB was formed on the purpose of developing humanity with the advancement of technology. This branch consists of energetic members who work hard to promote IEEE among students.",
+    description: "IEEE RUET Student Branch is one of the most operative student branches in Bangladesh. With a vibrant student body and experienced mentors, IEEE RUET Student Branch operates to promote IEEE and become a prominent student branch.",
     icons: {
-        icon: '/nav-logo.png',
+        icon: '/icon', // Uses the generated icon
         shortcut: '/nav-logo.png',
         apple: '/nav-logo.png',
     },
-    keywords: ['IEEE', 'RUET', 'Student Branch', 'Engineering', 'Technology', 'Bangladesh', 'Rajshahi', 'IEEE RUET SB', 'IEEE RUET Student Branch'],
-    authors: [{ name: 'IEEE RUET Student Branch' }],
+    keywords: ['IEEE', 'IEEE RUET SB', 'IEEE RUET Student Branch', 'RUET', 'Student Branch', 'Rajshahi', 'Bangladesh'],
+    authors: [{ name: 'S.M. Faizul Islam Fair', url: 'mailto:faizulislamfair@gmail.com' }, { name: 'IEEE RUET Student Branch' }],
     robots: {
         index: true,
         follow: true,
@@ -31,7 +31,7 @@ export const metadata = {
     },
     openGraph: {
         title: 'IEEE RUET Student Branch',
-        description: 'IEEE RUET SB was formed on the purpose of developing humanity with the advancement of technology. This branch consists of energetic members who work hard to promote IEEE among students.',
+        description: 'IEEE RUET Student Branch is one of the most operative student branches in Bangladesh. With a vibrant student body and experienced mentors, IEEE RUET Student Branch operates to promote IEEE and become a prominent student branch.',
         url: 'https://ieee-ruet-sb.org',
         siteName: 'IEEE RUET Student Branch',
         images: [
@@ -88,7 +88,7 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body
-                    className={`min-h-screen flex flex-col`}
+                className={`min-h-screen flex flex-col`}
             >
                 <Providers>
                     <Navbar />

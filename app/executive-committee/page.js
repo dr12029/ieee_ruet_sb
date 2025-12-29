@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import MemberCard from '@/components/MemberCard';
+import Loader from '@/components/Loader';
 
 // Section Component
 const Section = ({ title, members }) => {
@@ -94,8 +95,8 @@ export default function ExecutiveCommittee() {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading executive committee...</p>
+          <Loader />
+          <p className="text-gray-600 mt-4">Loading executive committee...</p>
         </div>
       </div>
     );

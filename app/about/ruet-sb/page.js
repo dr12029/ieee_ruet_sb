@@ -3,11 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { getFeaturedMembers } from "@/data/executiveMembers";
+import { getFeaturedMembers, executiveMembers } from "@/data/executiveMembers";
+import MemberCard from "@/components/MemberCard";
 
 export default function RuetSBPage() {
     const [showMore, setShowMore] = useState(false);
     const featuredMembers = getFeaturedMembers();
+    const { counselor, advisors, sbExecutives } = executiveMembers;
+    const topThreeExecutives = sbExecutives.slice(0, 3);
 
     return (
         <div className="min-h-screen bg-white">
@@ -383,47 +386,25 @@ export default function RuetSBPage() {
                         <div className="w-32 h-1 bg-linear-to-r from-blue-600 to-cyan-500 mx-auto mb-4"></div>
                     </div>
 
-                    {/* Featured Members Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                        {featuredMembers.map((member) => (
-                            <div
-                                key={member.id}
-                                className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 transition-all duration-500 ease-in-out hover:shadow-2xl hover:scale-105"
-                            >
-                                {/* Rounded Image */}
-                                <div className="flex justify-center pt-8 pb-6">
-                                    <div className="relative w-48 h-48 rounded-full overflow-hidden ring-4 ring-blue-100 shadow-xl">
-                                        {member.image ? (
-                                            <Image
-                                                src={member.image}
-                                                alt={member.name}
-                                                fill
-                                                className="object-cover"
-                                            />
-                                        ) : (
-                                            <div className="w-full h-full flex items-center justify-center bg-linear-to-br from-blue-500 to-cyan-500">
-                                                <div className="text-6xl font-bold text-white">
-                                                    {member.name.charAt(0)}
-                                                </div>
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
+                    {/* Leadership & Guidance */}
+                    <div className="mb-12">
+                        <h3 className="text-2xl font-bold text-center text-gray-800 mb-8">Leadership & Guidance</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+                             <MemberCard member={counselor} />
+                            {advisors.map(advisor => (
+                                <MemberCard key={advisor.id} member={advisor} />
+                            ))}
+                        </div>
+                    </div>
 
-                                {/* Content */}
-                                <div className="px-6 pb-8 text-center">
-                                    <h3 className="text-xl font-bold text-gray-900 mb-2 line-clamp-2 min-h-14">
-                                        {member.name}
-                                    </h3>
-                                    <p className="text-base text-blue-600 font-semibold line-clamp-1">
-                                        {member.position}
-                                    </p>
-                                    <p className="text-sm text-gray-600 line-clamp-1">
-                                        {member.organization}
-                                    </p>
-                                </div>
-                            </div>
-                        ))}
+                    {/* Top Executives */}
+                    <div className="mb-12">
+                        <h3 className="text-2xl font-bold text-center text-gray-800 mb-8">Student Branch Executives</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            {topThreeExecutives.map(exec => (
+                                <MemberCard key={exec.id} member={exec} />
+                            ))}
+                        </div>
                     </div>
 
                     {/* Buttons */}

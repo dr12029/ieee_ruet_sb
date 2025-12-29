@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import YearSelector from '@/components/YearSelector';
+import Loader from '@/components/Loader';
 
 const colorVariants = {
   blue: {
@@ -37,22 +38,22 @@ const ChapterTable = ({ title, members, color }) => {
         {title}
       </h3>
       <div className="overflow-x-auto">
-        <table className="w-full table-fixed">
+        <table className="w-full table-auto">
           <thead>
             <tr className="bg-gray-50">
               <th className="w-12 px-2 py-3 text-left text-sm font-semibold text-gray-700">#</th>
-              <th className="w-48 px-2 py-3 text-left text-sm font-semibold text-gray-700">Designation</th>
-              <th className="px-2 py-3 text-left text-sm font-semibold text-gray-700">Name</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700 whitespace-nowrap">Designation</th>
+              <th className="px-4 py-3 text-left text-sm font-semibold text-gray-700">Name</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
             {members.map((member, index) => (
               <tr key={member._id || member.id || index} className={`${styles.rowHover} transition-colors`}>
                 <td className="w-12 px-2 py-3 text-sm text-gray-600">{member.displayOrder || index + 1}</td>
-                <td className="w-48 px-2 py-3 text-sm font-medium text-gray-900 break-words">
+                <td className="px-4 py-3 text-sm font-medium text-gray-900">
                   {member.position}
                 </td>
-                <td className="px-2 py-3 text-sm text-gray-700 break-words">{member.name}</td>
+                <td className="px-4 py-3 text-sm text-gray-700 whitespace-nowrap">{member.name}</td>
               </tr>
             ))}
           </tbody>
@@ -87,8 +88,23 @@ export default function HallOfFame() {
       if (data.success) {
         const availableSessions = data.sessions || [];
         setSessions(availableSessions);
+        
         if (availableSessions.length > 0) {
-          setActiveSession(availableSessions[0]);
+            let foundSession = null;
+            // Find first session with members
+            for (const session of availableSessions) {
+                try {
+                    const memRes = await fetch(`/api/executive-committee?session=${session}&isActive=false`);
+                    const memData = await memRes.json();
+                    if (memData.success && memData.members && memData.members.length > 0) {
+                        foundSession = session;
+                        break;
+                    }
+                } catch (e) {
+                    console.error("Error checking session members", e);
+                }
+            }
+            setActiveSession(foundSession || availableSessions[0]);
         }
       } else {
         setError(data.error || 'Failed to fetch sessions');
@@ -201,8 +217,8 @@ export default function HallOfFame() {
           <div className="max-w-7xl mx-auto">
             {loading ? (
               <div className="text-center py-16">
-                <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto mb-4"></div>
-                <p className="text-gray-600">Loading hall of fame data...</p>
+                <Loader />
+                <p className="text-gray-600 mt-4">Loading hall of fame data...</p>
               </div>
             ) : error ? (
               <div className="text-center py-16">

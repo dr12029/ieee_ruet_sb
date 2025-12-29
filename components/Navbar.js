@@ -11,6 +11,7 @@ const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [openDropdown, setOpenDropdown] = useState(null);
+    const [mobileProfileOpen, setMobileProfileOpen] = useState(false);
     const pathname = usePathname();
     const isHomePage = pathname === '/';
     const { data: session, status } = useSession();
@@ -189,6 +190,53 @@ const Navbar = () => {
 
                     {/* Mobile: Profile Icon + Hamburger */}
                     <div className="lg:hidden flex items-center gap-3">
+                        {/* Mobile Profile Dropdown */}
+                        <div className="relative">
+                            <button
+                                onClick={() => setMobileProfileOpen(!mobileProfileOpen)}
+                                className={`p-2 rounded-md transition-all duration-500 ease-in-out ${isGradientNav ? 'text-white hover:bg-white hover:bg-opacity-20 hover:text-blue-600' : 'text-gray-800 hover:bg-gray-200'
+                                    }`}
+                            >
+                                <FaUser className="text-lg" />
+                            </button>
+
+                            {/* Dropdown Content */}
+                            <div className={`absolute right-0 top-full mt-2 w-48 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50 bg-white transition-all duration-200 ${mobileProfileOpen ? 'opacity-100 scale-100 visible' : 'opacity-0 scale-95 invisible'}`}>
+                                <div className="py-1">
+                                    {status === 'loading' ? (
+                                        <div className="px-4 py-2 text-sm text-gray-700">Loading...</div>
+                                    ) : session ? (
+                                        <>
+                                            <Link
+                                                href="/admin/dashboard"
+                                                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                onClick={() => setMobileProfileOpen(false)}
+                                            >
+                                                Dashboard
+                                            </Link>
+                                            <button
+                                                onClick={() => {
+                                                    handleSignOut();
+                                                    setMobileProfileOpen(false);
+                                                }}
+                                                className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                            >
+                                                Sign Out
+                                            </button>
+                                        </>
+                                    ) : (
+                                        <Link
+                                            href="/admin/login"
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                            onClick={() => setMobileProfileOpen(false)}
+                                        >
+                                            Login
+                                        </Link>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+
                         {/* Hamburger Menu */}
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

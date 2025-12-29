@@ -1,0 +1,151 @@
+:root {
+	--hue: 153;
+	--primary1: hsl(var(--hue),90%,90%);
+	--primary3: hsl(var(--hue),90%,70%);
+	--primary7: #000000;
+	--primary9: #ffffff;
+    --dur: 3s;
+}
+
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--primary9);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+.microchip {
+	overflow: visible;
+}
+.microchip rect {
+	fill: var(--primary9);
+	stroke: var(--primary7);
+	stroke-width: 2;
+}
+.microchip .spark {
+	fill: var(--primary7);
+	transition: fill 0.1s linear;
+}
+.microchip .spark.active {
+	fill: var(--primary3);
+}
+.microchip .line {
+	fill: none;
+	stroke: var(--primary7);
+	stroke-width: 2;
+	stroke-dasharray: 100 100;
+	stroke-dashoffset: 100;
+}
+.microchip .dot {
+	fill: var(--primary7);
+	transform: scale(0);
+	transform-origin: center;
+}
+.microchip .wave {
+	fill: none;
+	stroke: var(--primary7);
+	stroke-width: 2;
+	stroke-linecap: round;
+	opacity: 0;
+}
+
+/* Positioning */
+.dot:nth-child(1) { transform: translate(3px, 38px) scale(0); }
+.dot:nth-child(2) { transform: translate(3px, 54px) scale(0); }
+.dot:nth-child(3) { transform: translate(3px, 70px) scale(0); }
+.dot:nth-child(4) { transform: translate(3px, 86px) scale(0); }
+
+.line:nth-child(5) { transform: translate(3px, 38px); }
+.line:nth-child(6) { transform: translate(3px, 54px); }
+.line:nth-child(7) { transform: translate(3px, 70px); }
+.line:nth-child(8) { transform: translate(3px, 86px); }
+
+/* Animations */
+.dot {
+    animation-name: dot-in;
+    animation-duration: var(--dur);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+.line {
+    animation-name: line-in;
+    animation-duration: var(--dur);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+/* Delays */
+.dot:nth-child(1), .line:nth-child(5) { animation-delay: calc(-1 * var(--dur)); }
+.dot:nth-child(2), .line:nth-child(6) { animation-delay: calc(-1 * var(--dur) + 0.15s); }
+.dot:nth-child(3), .line:nth-child(7) { animation-delay: calc(-1 * var(--dur) + 0.30s); }
+.dot:nth-child(4), .line:nth-child(8) { animation-delay: calc(-1 * var(--dur) + 0.45s); }
+
+/* Waves */
+.wave {
+    animation: wave-out var(--dur) linear infinite;
+}
+.wave:nth-child(1) { animation-delay: 0s; } /* 12 + 1 = 13th child? No, separate group */
+
+/* Wait, the HTML structure for waves is:
+<g class="waves">
+    <path class="wave" ... /> x4
+</g>
+*/
+/* The SCSS loop for waves:
+@for $i from 1 through 4 {
+    .wave:nth-child(#{$i}) {
+        animation-delay: - $dur + ($dur * 0.1 * ($i - 1));
+    }
+}
+*/
+.waves .wave:nth-child(1) { animation-delay: calc(-1 * var(--dur)); }
+.waves .wave:nth-child(2) { animation-delay: calc(-1 * var(--dur) + 0.15s); }
+.waves .wave:nth-child(3) { animation-delay: calc(-1 * var(--dur) + 0.30s); }
+.waves .wave:nth-child(4) { animation-delay: calc(-1 * var(--dur) + 0.45s); }
+
+
+@keyframes dot-in {
+	0%, 5% { transform: translate(var(--tx, 0), var(--ty, 0)) scale(0); }
+	10%, 100% { transform: translate(var(--tx, 0), var(--ty, 0)) scale(1); }
+}
+/* Wait, I need to preserve the translate. 
+   CSS animations override transform. 
+   I should wrap them or use individual transform properties if supported, or include the translate in the keyframes.
+   Since the translate is different for each, I need to set a variable for the translate.
+*/
+
+.dot:nth-child(1) { --tx: 3px; --ty: 38px; }
+.dot:nth-child(2) { --tx: 3px; --ty: 54px; }
+.dot:nth-child(3) { --tx: 3px; --ty: 70px; }
+.dot:nth-child(4) { --tx: 3px; --ty: 86px; }
+
+.line:nth-child(5) { --tx: 3px; --ty: 38px; }
+.line:nth-child(6) { --tx: 3px; --ty: 54px; }
+.line:nth-child(7) { --tx: 3px; --ty: 70px; }
+.line:nth-child(8) { --tx: 3px; --ty: 86px; }
+
+@keyframes dot-in {
+	0%, 5% { transform: translate(var(--tx), var(--ty)) scale(0); }
+	10%, 100% { transform: translate(var(--tx), var(--ty)) scale(1); }
+}
+
+@keyframes line-in {
+	0%, 10% { stroke-dashoffset: 100; }
+	40%, 100% { stroke-dashoffset: 0; }
+}
+
+@keyframes wave-out {
+    0%, 40% { opacity: 0; transform: scale(0.8); }
+    50% { opacity: 1; }
+    60%, 100% { opacity: 0; transform: scale(1.5); }
+}
+/* Wave transform origin needs to be center */
+.wave {
+    transform-origin: center;
+}

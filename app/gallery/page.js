@@ -95,7 +95,7 @@ export default function GalleryPage() {
         return (
             <div className="min-h-screen bg-gray-50 flex items-center justify-center">
                 <div className="text-center">
-                    <div className="loading loading-spinner loading-lg text-primary"></div>
+                    <span className="loading loading-dots loading-lg text-primary"></span>
                     <p className="mt-4 text-gray-600">Loading gallery...</p>
                 </div>
             </div>

@@ -89,46 +89,13 @@ export default function EventDetailsPage() {
                         className="object-cover"
                         priority
                     />
-                    <div className="absolute inset-0 bg-linear-to-t from-black via-black/50 to-transparent" />
-
-                    {/* Back Button */}
-                    <div className="absolute top-10 left-4 md:top-14 md:left-8 z-10">
-                        <button
-                            onClick={() => router.back()}
-                            className="btn btn-circle bg-white/20 backdrop-blur-md border-none hover:bg-white/30 text-white"
-                        >
-                            <FaArrowLeft className="text-xl" />
-                        </button>
-                    </div>
-
-                    {/* Event Title Overlay - Desktop Only */}
-                    <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12 hidden md:block">
-                        <div className="max-w-5xl">
-                            <div className="flex flex-wrap items-center gap-3 mb-4">
-                                {event.featured && (
-                                    <span className="badge bg-linear-to-r from-yellow-400 to-orange-500 border-none text-white px-4 py-3 gap-2 shadow-lg">
-                                        <FaStar /> Featured Event
-                                    </span>
-                                )}
-                                {isUpcoming(event.date) && (
-                                    <span className="badge bg-linear-to-r from-green-400 to-emerald-500 border-none text-white px-4 py-3 shadow-lg">
-                                        Upcoming
-                                    </span>
-                                )}
-                            </div>
-                            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-lg leading-tight">
-                                {event.name}
-                            </h1>
-                            <div className="flex items-center gap-2 text-white/90 text-lg font-medium">
-                                <FaCalendar />
-                                <span>{formatDate(event.date)}</span>
-                            </div>
-                        </div>
-                    </div>
+                    
+                    {/* Event Title Overlay - Desktop Only - Removed as per request */}
+                    
                 </div>
 
-                {/* Event Title - Mobile Only (Below Image) */}
-                <div className="mt-6 md:hidden">
+                {/* Event Title - All Devices (Below Image) */}
+                <div className="mt-6">
                     <div className="flex flex-wrap items-center gap-3 mb-4">
                         {event.featured && (
                             <span className="badge bg-linear-to-r from-yellow-400 to-orange-500 border-none text-white px-4 py-3 gap-2 shadow-lg">
@@ -141,10 +108,10 @@ export default function EventDetailsPage() {
                             </span>
                         )}
                     </div>
-                    <h1 className="text-3xl font-bold text-gray-900 mb-4 leading-tight">
+                    <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2 leading-tight">
                         {event.name}
                     </h1>
-                    <div className="flex items-center gap-2 text-gray-600 text-lg font-medium">
+                    <div className="flex items-center gap-2 text-gray-600 text-base font-medium">
                         <FaCalendar className="text-blue-600" />
                         <span>{formatDate(event.date)}</span>
                     </div>
@@ -157,7 +124,7 @@ export default function EventDetailsPage() {
                     {/* Main Content */}
                     <div className="lg:col-span-2 order-2 lg:order-1">
                         <div className="bg-white rounded-2xl shadow-lg p-8">
-                            <h2 className="text-3xl font-bold mb-6 text-gray-900">About This Event</h2>
+                            <h2 className="text-2xl font-bold mb-6 text-gray-900">About This Event</h2>
                             <div className="prose prose-lg max-w-none text-gray-700 whitespace-pre-line">
                                 {event.description}
                             </div>
@@ -167,7 +134,7 @@ export default function EventDetailsPage() {
                     {/* Sidebar */}
                     <div className="lg:col-span-1 order-1 lg:order-2">
                         {/* Quick Info Card */}
-                        <div className="bg-white rounded-2xl shadow-lg p-6 sticky top-24">
+                        <div className="bg-white rounded-2xl shadow-lg p-6">
                             <h3 className="text-xl font-bold mb-4 text-gray-900">Quick Info</h3>
 
                             <div className="space-y-4">

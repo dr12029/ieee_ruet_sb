@@ -24,7 +24,7 @@ export default function EventDetailsPage() {
 
                 if (foundEvent) {
                     setEvent(foundEvent);
-                    
+
                     // Check if this event has a linked gallery
                     const galleryResponse = await fetch('/api/gallery');
                     const galleryData = await galleryResponse.json();
@@ -89,9 +89,9 @@ export default function EventDetailsPage() {
                         className="object-cover"
                         priority
                     />
-                    
+
                     {/* Event Title Overlay - Desktop Only - Removed as per request */}
-                    
+
                 </div>
 
                 {/* Event Title - All Devices (Below Image) */}
@@ -125,9 +125,10 @@ export default function EventDetailsPage() {
                     <div className="lg:col-span-2 order-2 lg:order-1">
                         <div className="bg-white rounded-2xl shadow-lg p-8">
                             <h2 className="text-2xl font-bold mb-6 text-gray-900">About This Event</h2>
-                            <div className="prose prose-lg max-w-none text-gray-700 whitespace-pre-line">
-                                {event.description}
-                            </div>
+                            <div
+                                className="prose prose-lg max-w-none text-gray-700"
+                                dangerouslySetInnerHTML={{ __html: event.description }}
+                            />
                         </div>
                     </div>
 
@@ -192,8 +193,8 @@ export default function EventDetailsPage() {
 
                                 {/* Dynamic Details */}
                                 {event.details && Object.entries(event.details).map(([key, value]) => {
-                                    // Skip keys we already displayed above
-                                    // if (['time', 'venue', 'participants', 'attendance'].includes(key)) return null;
+                                    // Skip keys we already displayed above and fbEventLink
+                                    if (['fbEventLink', 'fbEvent'].includes(key)) return null;
 
                                     return (
                                         <div key={key} className="flex items-start gap-3">
@@ -220,16 +221,18 @@ export default function EventDetailsPage() {
                                         View Gallery
                                     </Link>
                                 )}
-                                
-                                <a
-                                    href="https://www.facebook.com/ieeesbruet"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="btn bg-linear-to-r from-blue-600 to-blue-700 text-white border-none w-full hover:shadow-xl transition-all"
-                                >
-                                    <FaFacebook className="mr-2" />
-                                    Visit Facebook Page
-                                </a>
+
+                                {(event.fbEventLink || event.details?.fbEventLink || event.details?.fbEvent) && (
+                                    <a
+                                        href={event.fbEventLink || event.details?.fbEventLink || event.details?.fbEvent}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="btn bg-linear-to-r from-blue-600 to-blue-700 text-white border-none w-full hover:shadow-xl transition-all"
+                                    >
+                                        <FaFacebook className="mr-2" />
+                                        Facebook Event Link
+                                    </a>
+                                )}
 
                                 <Link
                                     href="/contact"

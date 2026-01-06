@@ -4,25 +4,31 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaCalendarAlt, FaClock, FaMapMarkerAlt, FaArrowRight } from 'react-icons/fa';
+import { getUpcomingEvents } from '@/data/eventsData';
 
 export default function UpcomingEventsPage() {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        async function fetchEvents() {
-            try {
-                const response = await fetch('/api/events?type=upcoming');
-                const data = await response.json();
-                setEvents(data.events || []);
-            } catch (error) {
-                console.error('Error fetching upcoming events:', error);
-            } finally {
-                setLoading(false);
-            }
-        }
+        // ===== CURRENT: Load events directly from eventsData.js (no API call) =====
+        const upcomingEvents = getUpcomingEvents();
+        setEvents(upcomingEvents);
+        setLoading(false);
 
-        fetchEvents();
+        // ===== UNCOMMENT BELOW & COMMENT ABOVE TO USE MONGODB API =====
+        // async function fetchEvents() {
+        //     try {
+        //         const response = await fetch('/api/events?type=upcoming');
+        //         const data = await response.json();
+        //         setEvents(data.events || []);
+        //     } catch (error) {
+        //         console.error('Error fetching upcoming events:', error);
+        //     } finally {
+        //         setLoading(false);
+        //     }
+        // }
+        // fetchEvents();
     }, []);
 
     function formatDate(dateString) {

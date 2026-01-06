@@ -6,6 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FaCalendarAlt, FaMapMarkerAlt, FaArrowRight } from 'react-icons/fa';
 import YearSelector from '@/components/YearSelector';
+import { eventsData, getPastEventYears } from '@/data/eventsData';
 
 export default function PastEventsPage() {
     const params = useParams();
@@ -17,25 +18,33 @@ export default function PastEventsPage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        async function fetchEvents() {
-            try {
-                const response = await fetch('/api/events?type=past');
-                const data = await response.json();
+        // ===== CURRENT: Load events directly from eventsData.js (no API call) =====
+        const pastYears = getPastEventYears();
+        setYears(pastYears);
 
-                // Use years from API response (already filtered for past events)
-                setYears(data.years || []);
+        // Get events for the selected year
+        const yearEvents = eventsData[year] || [];
+        const eventsWithYear = yearEvents
+            .filter(event => !event.upcoming)
+            .map(event => ({ ...event, year }));
+        setEvents(eventsWithYear);
+        setLoading(false);
 
-                // Filter events by selected year (handle string/number comparison)
-                const yearEvents = data.events.filter(e => e.year.toString() === year.toString());
-                setEvents(yearEvents);
-            } catch (error) {
-                console.error('Error fetching past events:', error);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchEvents();
+        // ===== UNCOMMENT BELOW & COMMENT ABOVE TO USE MONGODB API =====
+        // async function fetchEvents() {
+        //     try {
+        //         const response = await fetch('/api/events?type=past');
+        //         const data = await response.json();
+        //         setYears(data.years || []);
+        //         const yearEvents = data.events.filter(e => e.year.toString() === year.toString());
+        //         setEvents(yearEvents);
+        //     } catch (error) {
+        //         console.error('Error fetching past events:', error);
+        //     } finally {
+        //         setLoading(false);
+        //     }
+        // }
+        // fetchEvents();
     }, [year]);
 
     function formatDate(dateString) {

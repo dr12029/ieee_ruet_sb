@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaCalendarAlt, FaArrowRight, FaMapMarkerAlt } from 'react-icons/fa';
+import { getFeaturedEvents } from '@/data/eventsData';
 
 const formatDate = (dateString) => {
   if (!dateString) return 'Coming Soon';
@@ -21,20 +22,27 @@ export default function RecentEventsSection() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchEvents() {
-      try {
-        const response = await fetch('/api/events?featured=true');
-        const data = await response.json();
-        // Get the 3 most recent featured events
-        const recentFeatured = (data.events || []).slice(0, 3);
-        setEvents(recentFeatured);
-      } catch (error) {
-        console.error('Error fetching featured events:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchEvents();
+    // ===== CURRENT: Load events directly from eventsData.js (no API call) =====
+    const featuredEvents = getFeaturedEvents();
+    // Get the 3 most recent featured events
+    const recentFeatured = featuredEvents.slice(0, 3);
+    setEvents(recentFeatured);
+    setLoading(false);
+
+    // ===== UNCOMMENT BELOW & COMMENT ABOVE TO USE MONGODB API =====
+    // async function fetchEvents() {
+    //   try {
+    //     const response = await fetch('/api/events?featured=true');
+    //     const data = await response.json();
+    //     const recentFeatured = (data.events || []).slice(0, 3);
+    //     setEvents(recentFeatured);
+    //   } catch (error) {
+    //     console.error('Error fetching featured events:', error);
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // }
+    // fetchEvents();
   }, []);
 
   function formatDate(dateString) {

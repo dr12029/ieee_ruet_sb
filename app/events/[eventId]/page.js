@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FaCalendar, FaMapMarkerAlt, FaClock, FaUsers, FaFacebook, FaArrowLeft, FaStar, FaImages } from 'react-icons/fa';
+import { getEventById } from '@/data/eventsData';
 
 export default function EventDetailsPage() {
     const params = useParams();
@@ -16,34 +17,57 @@ export default function EventDetailsPage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        async function fetchEvent() {
-            try {
-                const response = await fetch('/api/events');
-                const data = await response.json();
-                const foundEvent = data.events.find(e => e.id === eventId);
+        async function loadEvent() {
+            // ===== CURRENT: Load event directly from eventsData.js (no API call) =====
+            const foundEvent = getEventById(eventId);
 
-                if (foundEvent) {
-                    setEvent(foundEvent);
+            if (foundEvent) {
+                setEvent(foundEvent);
 
-                    // Check if this event has a linked gallery
+                // Check if this event has a linked gallery (still uses API for gallery)
+                try {
                     const galleryResponse = await fetch('/api/gallery');
                     const galleryData = await galleryResponse.json();
                     if (galleryData.success) {
                         const linkedGallery = galleryData.items.find(g => g.eventId === eventId);
                         setHasGallery(!!linkedGallery);
                     }
-                } else {
-                    router.push('/events/upcoming-events');
+                } catch (error) {
+                    console.error('Error checking gallery:', error);
                 }
-            } catch (error) {
-                console.error('Error fetching event details:', error);
+            } else {
                 router.push('/events/upcoming-events');
-            } finally {
-                setLoading(false);
             }
+            setLoading(false);
         }
 
-        fetchEvent();
+        // ===== UNCOMMENT BELOW & COMMENT loadEvent() ABOVE TO USE MONGODB API =====
+        // async function fetchEvent() {
+        //     try {
+        //         const response = await fetch('/api/events');
+        //         const data = await response.json();
+        //         const foundEvent = data.events.find(e => e.id === eventId);
+        //         if (foundEvent) {
+        //             setEvent(foundEvent);
+        //             const galleryResponse = await fetch('/api/gallery');
+        //             const galleryData = await galleryResponse.json();
+        //             if (galleryData.success) {
+        //                 const linkedGallery = galleryData.items.find(g => g.eventId === eventId);
+        //                 setHasGallery(!!linkedGallery);
+        //             }
+        //         } else {
+        //             router.push('/events/upcoming-events');
+        //         }
+        //     } catch (error) {
+        //         console.error('Error fetching event details:', error);
+        //         router.push('/events/upcoming-events');
+        //     } finally {
+        //         setLoading(false);
+        //     }
+        // }
+
+        loadEvent();
+        // fetchEvent(); // Uncomment this and comment loadEvent() above to use MongoDB
     }, [eventId, router]);
 
     function formatDate(dateString) {

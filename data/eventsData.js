@@ -169,7 +169,7 @@ Email : tahsin.tarif.personal@gmail.com `,
             }
         },
         {
-            id: "ieee_pes_day_2024_celebration_electric_mobility_innovation_competition_&_webinar",
+            id: "ieee_pes_day_2024_celebration_electric_mobility_innovation_competition_and_webinar",
             name: "𝐈𝐄𝐄𝐄 𝐏𝐄𝐒 𝐃𝐀𝐘 𝟐𝟎𝟐𝟒 𝐂𝐞𝐥𝐞𝐛𝐫𝐚𝐭𝐢𝐨𝐧: 𝐄𝐥𝐞𝐜𝐭𝐫𝐢𝐜 𝐌𝐨𝐛𝐢𝐥𝐢𝐭𝐲 𝐈𝐧𝐧𝐨𝐯𝐚𝐭𝐢𝐨𝐧 𝐂𝐨𝐦𝐩𝐞𝐭𝐢𝐭𝐢𝐨𝐧 & 𝐖𝐞𝐛𝐢𝐧𝐚𝐫",
             date: "2024-04-23",
             image: "/events/2024/pesday2024.jpg",
@@ -215,7 +215,7 @@ Email : tahsin.tarif.personal@gmail.com `,
             id: "ieee_full_yearly_membership_for_2024",
             name: "IEEE Full Yearly Membership for 2024",
             date: "2024-01-07",
-            image: "/events/2024/membershipRequirement2023.jpg",
+            image: "/events/2024/volunteer_2024.jpg",
             featured: false,
             upcoming: false,
             description: `The Institute of Electrical and Electronics Engineers (IEEE) is the world’s biggest platform for Engineering Students and Professionals consisting of over 4,00,000 professionals and over 70,000 student members. <br> <br>
@@ -349,7 +349,7 @@ There was an arrangement of some refreshment snacks and lastly, there was a phot
             }
         },
         {
-            id: "hope_&_horizons_a_day_with_ieee_ruet_student_branch",
+            id: "hope_and_horizons_a_day_with_ieee_ruet_student_branch",
             name: "𝐇𝐨𝐩𝐞  &  𝐇𝐨𝐫𝐢𝐳𝐨𝐧𝐬 :  𝐀   𝐃𝐚𝐲   𝐰𝐢𝐭𝐡   𝐈𝐄𝐄𝐄   𝐑𝐔𝐄𝐓   𝐒𝐭𝐮𝐝𝐞𝐧𝐭   𝐁𝐫𝐚𝐧𝐜𝐡",
             date: "2023-10-11",
             image: "/events/2023/Hope_Horizons.jpg",
@@ -896,7 +896,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
             details: {}
         },
         {
-            id: "induction_2022_meet_&_greet_with_ieee_ruet_student_branch",
+            id: "induction_2022_meet_and_greet_with_ieee_ruet_student_branch",
             name: "Induction 2022: Meet & Greet with IEEE RUET Student Branch",
             date: "2022-06-24",
             image: "/events/2022/induction2022.jpg",
@@ -964,7 +964,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
             details: {}
         },
         {
-            id: "ieee_pes_day_2022_challenges_in_power_system_&_an_overview_of_nuclear_power_plant",
+            id: "ieee_pes_day_2022_challenges_in_power_system_and_an_overview_of_nuclear_power_plant",
             name: "IEEE PES Day 2022: Challenges in Power System & An Overview of Nuclear Power Plant",
             date: "2022-05-06",
             image: "/events/2022/pes day 2022.jpg",
@@ -1166,7 +1166,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
     ],
     2021: [
         {
-            id: "reception_programme_for_prof_dr_md_saifur_rahman_&_prof_dr_celia_shahnaz",
+            id: "reception_programme_for_prof_dr_md_saifur_rahman_and_prof_dr_celia_shahnaz",
             name: "Reception Programme for Prof. Dr. Md. Saifur Rahman & Prof. Dr. Celia Shahnaz",
             date: "2021-12-22",
             image: "/events/2021/Reception.jpg",
@@ -1202,7 +1202,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
             details: {}
         },
         {
-            id: "internet_of_things_iot_&_automation_for_industry_4.0",
+            id: "internet_of_things_iot_and_automation_for_industry_4.0",
             name: "Internet of Things (IoT) & Automation for Industry 4.0",
             date: "2021-11-17",
             image: "/events/2021/iot4.0.jpg",
@@ -1579,7 +1579,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
             details: {}
         },
         {
-            id: "online_contest_on_article_writing_&_poster_design_on_covid_19",
+            id: "online_contest_on_article_writing_and_poster_design_on_covid_19",
             name: "Online Contest on Article Writing & Poster Design on COVID-19",
             date: "2020-04-04",
             image: "/events/2020/article_online.jpg",
@@ -1620,7 +1620,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
             details: {}
         },
         {
-            id: "seminar_on_iot_based_system_&_electric_vehicle",
+            id: "seminar_on_iot_based_system_and_electric_vehicle",
             name: "Seminar on IoT based System & Electric Vehicle",
             date: "2020-02-27",
             image: "/events/2020/iot.jpg",
@@ -1635,7 +1635,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
             details: {}
         },
         {
-            id: "seminar_on_humor_research_&_higher_studies_in_abroad",
+            id: "seminar_on_humor_research_and_higher_studies_in_abroad",
             name: "Seminar on Humor Research & Higher Studies in Abroad",
             date: "2020-02-23",
             image: "/events/2020/humor.jpg",
@@ -1650,7 +1650,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
             details: {}
         },
         {
-            id: "application_requirements_university_&_scholarship_search_in_us",
+            id: "application_requirements_university_and_scholarship_search_in_us",
             name: "Application Requirements, University & Scholarship Search in US",
             date: "2020-02-20",
             image: "/events/2020/usa.jpg",
@@ -1665,7 +1665,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
             details: {}
         },
         {
-            id: "seminar_on_thesis_paper_writing_&_research_publications",
+            id: "seminar_on_thesis_paper_writing_and_research_publications",
             name: "Seminar on Thesis Paper Writing & Research Publications",
             date: "2020-01-30",
             image: "/events/2020/thesis.jpg",
@@ -1827,7 +1827,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
             details: {}
         },
         {
-            id: "ieee_computer_society_bdc_meet_&_greet_2019_rajshahi",
+            id: "ieee_computer_society_bdc_meet_and_greet_2019_rajshahi",
             name: "IEEE Computer Society BDC Meet & Greet 2019: Rajshahi",
             date: "2019-08-02",
             image: "/events/2019/meet&greet-ieee-cs.jpg",
@@ -1840,7 +1840,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
             details: {}
         },
         {
-            id: "seminar_on_career_prospects_&_opportunities_of_artificial_intelligence_in_japan",
+            id: "seminar_on_career_prospects_and_opportunities_of_artificial_intelligence_in_japan",
             name: "Seminar on ‘Career Prospects & Opportunities of Artificial Intelligence in Japan",
             date: "2019-07-27",
             image: "/events/2019/career ai.jpg",
@@ -1956,7 +1956,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
     ],
     2018: [
         {
-            id: "workshop_on_power_electronics_&_iot_based_robotics",
+            id: "workshop_on_power_electronics_and_iot_based_robotics",
             name: "Workshop on Power Electronics & IoT Based Robotics",
             date: "2018-11-08",
             image: "/events/2018/iot1.jpg",
@@ -2090,7 +2090,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
             details: {}
         },
         {
-            id: "thesis_paper_writing_&_publication_using_ksi_method",
+            id: "thesis_paper_writing_and_publication_using_ksi_method",
             name: "Thesis Paper Writing & Publication Using KSI Method",
             date: "2018-03-05",
             image: "/events/2018/thesispaperwriting.jpg",
@@ -2111,7 +2111,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
             details: {}
         },
         {
-            id: "graphic_design_bootcamp_&_directions_for_freelancing",
+            id: "graphic_design_bootcamp_and_directions_for_freelancing",
             name: "Graphic Design Bootcamp & Directions for Freelancing",
             date: "2018-02-15",
             image: "/events/2018/graphicboot.jpg",
@@ -2212,7 +2212,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
             details: {}
         },
         {
-            id: "solar_home_system_design_installation_&_maintenance",
+            id: "solar_home_system_design_installation_and_maintenance",
             name: "Solar Home System: Design, Installation & Maintenance",
             date: "2017-12-02",
             image: "/events/2017/solar_home.jpg",
@@ -2384,7 +2384,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
             details: {}
         },
         {
-            id: "fellowships_&_scholarships_in_australia_via_endeavour",
+            id: "fellowships_and_scholarships_in_australia_via_endeavour",
             name: "Fellowships & Scholarships in Australia via Endeavour",
             date: "2017-05-06",
             image: "/events/2017/Fellowships&Scholarships.jpg",
@@ -2504,7 +2504,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
             details: {}
         },
         {
-            id: "effective_comm_for_higher_education_and_science_&_engg_outreach",
+            id: "effective_comm_for_higher_education_and_science_and_engg_outreach",
             name: "Effective Comm for Higher Education and Science & Engg Outreach",
             date: "2016-12-03",
             image: "/events/2016/effectivecomm.jpg",
@@ -2593,7 +2593,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
             details: {}
         },
         {
-            id: "presentation_facts_&_strategies",
+            id: "presentation_facts_and_strategies",
             name: "Presentation Facts & Strategies",
             date: "2016-07-26",
             image: "/events/2016/presentationfacts.jpg",
@@ -2830,7 +2830,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
             details: {}
         },
         {
-            id: "robotour_&_programming_contest",
+            id: "robotour_and_programming_contest",
             name: "RoboTour & Programming Contest",
             date: "2015-03-19",
             image: "/events/2015/robotour.jpg",
@@ -2876,7 +2876,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
 
     2014: [
         {
-            id: "seminar_on_microcontroller_&_introduction_to_robotics",
+            id: "seminar_on_microcontroller_and_introduction_to_robotics",
             name: "Seminar on \"Microcontroller & Introduction to Robotics\"",
             date: "2014-12-04",
             image: "/events/2014/Microcontroller.jpg",
@@ -2947,7 +2947,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
             details: {}
         },
         {
-            id: "seminar_&_ieee_activity_presentation",
+            id: "seminar_and_ieee_activity_presentation",
             name: "Seminar & IEEE Activity Presentation",
             date: "2013-05-10",
             image: "/events/2009-2013/Seminar_IEEE_activity_presentaton.jpg",
@@ -2972,7 +2972,7 @@ Here you will get the chance to register for the one Full-year membership of IEE
 
     2012: [
         {
-            id: "training_workshop_of_policy_making_&_mass_awarness_on_use_of_energy_efficient_bresl_products",
+            id: "training_workshop_of_policy_making_and_mass_awarness_on_use_of_energy_efficient_bresl_products",
             name: "Training Workshop of Policy Making & Mass Awarness on Use of Energy Efficient BRESL Products",
             date: "2012-03-03",
             image: "/events/2009-2013/training_workshp_of_policy_making_and_mass_awarness_on_use_of_energy_efficient_bresl_products.jpg",

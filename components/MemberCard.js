@@ -1,12 +1,20 @@
+'use client';
+
 import Image from 'next/image';
 import { FaLinkedin, FaFacebook, FaEnvelope } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 const MemberCard = ({ member }) => {
   return (
-    <div className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100">
+    <motion.div
+      className="bg-white rounded-xl sm:rounded-2xl shadow-md overflow-hidden border border-gray-100"
+      whileHover={{ y: -8, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)' }}
+      whileTap={{ scale: 0.98 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+    >
       {/* Rounded Image at Top */}
-      <div className="flex justify-center pt-8 pb-6 bg-linear-to-b from-blue-50 to-white">
-        <div className="relative w-40 h-40 rounded-full overflow-hidden ring-4 ring-blue-100 shadow-lg">
+      <div className="flex justify-center pt-6 sm:pt-8 pb-4 sm:pb-6 bg-linear-to-b from-blue-50 to-white">
+        <div className="relative w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 rounded-full overflow-hidden ring-3 sm:ring-4 ring-blue-100 shadow-lg">
           {member.image ? (
             <Image
               src={member.image}
@@ -16,7 +24,7 @@ const MemberCard = ({ member }) => {
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center bg-linear-to-br from-blue-500 to-cyan-500">
-              <div className="text-5xl font-bold text-white">
+              <div className="text-4xl sm:text-5xl font-bold text-white">
                 {member.name.charAt(0)}
               </div>
             </div>
@@ -25,25 +33,25 @@ const MemberCard = ({ member }) => {
       </div>
 
       {/* Card Content */}
-      <div className="px-6 pb-6">
+      <div className="px-4 sm:px-6 pb-5 sm:pb-6">
         {/* Name, Position, Organization - Fixed height for alignment */}
-        <div className="text-left mb-4 h-28">
-          <h3 className="text-xl font-bold text-gray-900 mb-1 leading-tight line-clamp-2">
+        <div className="text-left mb-3 sm:mb-4 h-24 sm:h-28">
+          <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-1 leading-tight line-clamp-2">
             {member.name}
           </h3>
-          <p className="text-base font-semibold text-blue-600 mb-0.5 line-clamp-1">
+          <p className="text-sm sm:text-base font-semibold text-blue-600 mb-0.5 line-clamp-1">
             {member.position}
           </p>
-          <p className="text-sm text-gray-600 leading-snug line-clamp-2">
+          <p className="text-xs sm:text-sm text-gray-600 leading-snug line-clamp-2">
             {member.organization}
           </p>
         </div>
 
         {/* Divider Line */}
-        <div className="border-t-2 border-gray-200 my-4"></div>
+        <div className="border-t-2 border-gray-200 my-3 sm:my-4"></div>
 
         {/* Details Section */}
-        <div className="text-left space-y-1.5 mb-5 text-sm text-gray-700">
+        <div className="text-left space-y-1 sm:space-y-1.5 mb-4 sm:mb-5 text-xs sm:text-sm text-gray-700">
           {/* Student Year or Designation */}
           {member.designation && (
             <p className="font-medium text-gray-800">{member.designation}</p>
@@ -51,10 +59,10 @@ const MemberCard = ({ member }) => {
           {member.studentYear && (
             <p className="font-medium text-gray-800">{member.studentYear}</p>
           )}
-          
+
           {/* Department */}
           <p className="text-gray-700">{member.department}</p>
-          
+
           {/* University */}
           <p className="text-gray-600 text-xs leading-relaxed">
             {member.university}
@@ -62,59 +70,71 @@ const MemberCard = ({ member }) => {
         </div>
 
         {/* Social Media Icons */}
-        <div className="flex justify-center gap-3 pt-2">
+        <div className="flex justify-center gap-2 sm:gap-3 pt-2">
           {/* LinkedIn */}
           {member.linkedin && (
-            <a
+            <motion.a
               href={member.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-11 h-11 rounded-full bg-blue-600 flex items-center justify-center text-white hover:bg-blue-700 hover:scale-110 transition-all duration-300 shadow-md hover:shadow-lg"
+              className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-md"
               title="LinkedIn"
+              whileHover={{ scale: 1.15, rotate: 5 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 17 }}
             >
-              <FaLinkedin className="text-lg" />
-            </a>
+              <FaLinkedin className="text-base sm:text-lg" />
+            </motion.a>
           )}
 
           {/* Facebook */}
           {member.facebook && (
-            <a
+            <motion.a
               href={member.facebook}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-11 h-11 rounded-full bg-blue-500 flex items-center justify-center text-white hover:bg-blue-600 hover:scale-110 transition-all duration-300 shadow-md hover:shadow-lg"
+              className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-blue-500 flex items-center justify-center text-white shadow-md"
               title="Facebook"
+              whileHover={{ scale: 1.15, rotate: 5 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 17 }}
             >
-              <FaFacebook className="text-lg" />
-            </a>
+              <FaFacebook className="text-base sm:text-lg" />
+            </motion.a>
           )}
 
           {/* Email */}
-          <a
+          <motion.a
             href={`mailto:${member.email}`}
-            className="w-11 h-11 rounded-full bg-linear-to-r from-cyan-500 to-blue-500 flex items-center justify-center text-white hover:from-cyan-600 hover:to-blue-600 hover:scale-110 transition-all duration-300 shadow-md hover:shadow-lg"
+            className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-linear-to-r from-cyan-500 to-blue-500 flex items-center justify-center text-white shadow-md"
             title="Email"
+            whileHover={{ scale: 1.15, rotate: 5 }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
           >
-            <FaEnvelope className="text-lg" />
-          </a>
+            <FaEnvelope className="text-base sm:text-lg" />
+          </motion.a>
 
           {/* Website (for faculty) */}
           {member.website && (
-            <a
+            <motion.a
               href={member.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-11 h-11 rounded-full bg-linear-to-r from-purple-500 to-indigo-500 flex items-center justify-center text-white hover:from-purple-600 hover:to-indigo-600 hover:scale-110 transition-all duration-300 shadow-md hover:shadow-lg"
+              className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-linear-to-r from-purple-500 to-indigo-500 flex items-center justify-center text-white shadow-md"
               title="Website"
+              whileHover={{ scale: 1.15, rotate: 5 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 17 }}
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
               </svg>
-            </a>
+            </motion.a>
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
